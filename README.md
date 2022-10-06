@@ -1,100 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Opencracia
 
-## Getting Started
+Opencracia is an open source tool to encourage citizens to release their own instances of digital democracy.
 
-First, run the development server:
+## Getting started
 
-```bash
-npm ci
-npm run dev
-# or
-yarn dev
+Set up Opencracia by cloning the template:
+```
+git clone 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Modules
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Currently, Opencracia supports four modules for participation: Pairwise comparison, Approval voting, Ranking voting, and Fallback voting.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Pairwise comparison
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Approval voting
 
-## Deploy server
+### Ranking voting
 
-Before starting deploying the server for the project, we encourage you to update libraries and dependencies.
+### Fallback voting
 
-```bash
-sudo apt-get install -y nginx
-sudo apt-get update
-sudo apt-get upgrade
+## Platforms inspired by Opencracia
 
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo npm install pm2 -g
+- [Mon Programme 2022](https://monprogramme2022.org): A digital tool to create a government program for the 2022 French Presidential Election.
 
-sudo apt-get install -y postgresql
-pg_ctlcluster 12 main start
+- [Brazucracia](https://brazucracia.org): A digital tool to create a government program for the 2022 Brazilian Presidential Election.
 
-```
+## Contributing
 
-To connect the server with the GitHub repository, you need to make sure that there is `.ssh` folder and a `config` file.
-```bash
-mkdir ~/.ssh
-chmod 700 ~/.ssh
+We encourage developers and hack-activists to send their Pull Requests to Opencracia.
 
-touch ~/.ssh/config
-chmod 600 ~/.ssh/config
-```
+## License
 
-Then, you need to create a public key to sync with GitHub. Copy the content generated in the file `id_rsa.pub` and paste it in the config of the repository (https://github.com/CenterForCollectiveLearning/mon-programme-2022/settings/keys).
-```bash
-ssh-keygen -t rsa
-cat id_rsa.pub
-```
-
-```bash
-cd 
-git clone git@github.com:CenterForCollectiveLearning/mon-programme-2022.git production
-```
-
-### Nginx
-```bash
-cd /etc/nginx/sites-available
-sudo nano monprogramme2022.org
-sudo ln -s /etc/nginx/sites-available/monprogramme2022.org /etc/nginx/sites-enabled/
-```
-
-In case that you receive an error from the VM. bind() to [::]:80 failed (98: Address already in use)
-```bash
-sudo /etc/init.d/apache2 stop
-```
-
-### Postgres
-
-```
-sudo nano /etc/postgresql/12/main/pg_hba.conf
-sudo service postgresql restart
-```
-
-### CronTab
-```bash
-crontab -e
-```
-
-For instance, if you want to update the ranking every minute, you need to include this code:
-```bash
-* * * * * /path/to/file/cronjob.sh
-
-chmod +x /path/to/file/cronjob.sh
-```
-
-Populate the database with the game options 
-```python3 scripts/updateGameFile.py
-```
-### Deploy
-
-```bash
-npm ci
-npm run build
-pm2 restart all
-```
+Opencracia is open source software unther the GPL v3.0 license.
