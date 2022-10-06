@@ -1,0 +1,7 @@
+datetime
+numpy
+pandas
+simplejson
+sqlalchemy
+tqdm
+psycopg2

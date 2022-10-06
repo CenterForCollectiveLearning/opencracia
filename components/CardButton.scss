@@ -1,0 +1,31 @@
+@import "../library.scss";
+
+.card-button {
+  // border: 1px solid blue;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 99px;
+  color: $accent-1;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 1.1rem;
+  font-weight: 400;
+  justify-content: center;
+  margin: 5px;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: underline;
+  width: auto;
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &.is-block {
+    width: auto;
+    border-radius: 0px;
+  }
+}

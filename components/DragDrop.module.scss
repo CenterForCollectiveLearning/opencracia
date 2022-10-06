@@ -1,0 +1,66 @@
+.dragdrop {
+  border-radius: 10px;
+  border: 2px dashed $primary;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  width: 100%;
+  .draggable {
+    display: flex;
+    margin: 15px 0px;
+    border-radius: 10px;
+    .rank {
+      align-items: center;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      display: flex;
+      flex: 1;
+      font-size: 1.25rem;
+      justify-content: center;
+      max-width: 32px;
+      min-width: 32px;
+      font-weight: 700;
+    }
+  }
+  .item {
+    align-items: center;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    flex: 1;
+    font-size: 1.2rem;
+    justify-content: space-between;
+    padding: 5px 10px;
+    .move {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      .option {
+        align-items: center;
+        background-color: $white;
+        border-radius: 999px;
+        border: 1px solid $primary;
+        color: $primary;
+        cursor: pointer;
+        display: flex;
+        font-size: 3rem;
+        height: 34px;
+        justify-content: center;
+        margin: 2px;
+        padding: 0px;
+        width: 34px;
+        &:hover {
+          background-color: $primary;
+          color: $white;
+        }
+        &.up {
+          // color: $green;
+          // border: 1px solid $green;
+        }
+        &.down {
+          // color: $red;
+          // border: 1px solid $red;
+        }
+      }
+    }
+  }
+}

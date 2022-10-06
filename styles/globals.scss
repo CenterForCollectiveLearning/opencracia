@@ -1,0 +1,125 @@
+@import "react-circular-progressbar/dist/styles.css";
+
+
+html,
+body {
+  background-color: $background;
+  font-family: $text-font, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.7rem;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  .column {
+    flex: 1;
+    min-width: 300px;
+    padding: 10px;
+  }
+  .column2 {
+    flex: 1;
+    min-width: 600px;
+    padding: 10px;
+  }
+}
+
+.container {
+  max-width: 768px;
+  margin: auto;
+  padding: 1rem;
+}
+
+a {
+  color: $primary;
+  text-decoration: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $title-font;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.is-center {
+  text-align: center;
+}
+
+.title {
+  color: $black;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 30px;
+  text-align: center;
+}
+
+.CircularProgressbar {
+  .CircularProgressbar-path {
+    stroke: $circular-progress-path;
+  }
+  .CircularProgressbar-text {
+    fill: $circular-progress-path;
+    font-style: normal;
+    font-size: 1.75rem;
+  }
+}
+
+.bp3-dialog {
+  background-color: $white;
+  border-radius: 0px;
+  font-size: 1.1rem;
+  .bp3-dialog-header {
+    background-color: $navbar;
+    border-radius: 0px;
+    padding: 0.5rem 2.5rem;
+    .bp3-icon {
+      color: $navbar-font-color;
+      svg {
+        height: 30px;
+        width: 30px;
+      }
+    }
+    .bp3-heading {
+      color: $navbar-font-color;
+      white-space: normal;
+    }
+  }
+
+  p {
+    line-height: 1.75rem;
+  }
+}
+
+.bp3-menu {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.bp3-menu-item.bp3-intent-primary:hover, .bp3-submenu .bp3-popover-target.bp3-popover-open > .bp3-intent-primary.bp3-menu-item, .bp3-menu-item.bp3-intent-primary.bp3-active {
+  background-color: $primary;
+}
+
+.bp3-progress-bar .bp3-progress-meter {
+  margin-top: 0px;
+  background-color: $flag-red;
+}
+
+.bp3-control input:checked ~ .bp3-control-indicator {
+  background-color: $primary;
+}

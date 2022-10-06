@@ -1,0 +1,50 @@
+.member {
+  display: flex;
+  margin-bottom: 10px;
+
+  .name {
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .photo {
+    min-width: 100px;
+    max-width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 999px;
+    border: 1px solid $primary;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .member {
+
+    display: inline-block; 
+    margin-bottom: 40px;
+    text-align: left;
+    .name {
+      font-weight: 700;
+      font-style: italic;
+      text-align: left;
+    }
+    .photo {
+      min-width: 150px;
+      max-width: 150px;
+      height: 150px;
+      margin-left: 80px;
+
+      border-radius: 999px;
+      border: 1px solid $primary;
+      background-size: cover;
+      background-position: center;
+    }
+  
+  }
+}
+
+
+
+

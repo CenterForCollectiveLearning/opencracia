@@ -1,0 +1,14 @@
+.share {
+  background-color: $white;
+  border-radius: 99px;
+  border: 1px solid $flag-red;
+  color: $flag-red;
+  cursor: pointer;
+  font-size: 1.3rem;
+  margin-top: -30px;
+  padding: 0.35rem 1rem;
+  &:hover {
+    background-color: $flag-red;
+    color: $white;
+  }
+}

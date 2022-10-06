@@ -1,0 +1,24 @@
+.proposal {
+  background-color: $primary;
+  color: $white;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  .label {
+    margin-bottom: 10px;
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    .option {
+      background-color: $white;
+      color: $primary;
+      padding: 0.1rem 0.5rem;
+      border-radius: 99px;
+      margin-left: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.toggle {
+  background-color: transparent;
+  border: 1px solid $toggle-background;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: $text-font, sans-serif;
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  width: 100%;
+  color: $black;
+  &:hover {
+    background-color: $toggle-background;
+    color: $black;
+  }
+}

@@ -1,0 +1,93 @@
+.comparison {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  max-width: 800px;
+  padding: 5px 20px;
+  .button {
+    align-items: center;
+    background-color: #cccccc;
+    border-radius: 10px;
+    border: none;
+    color: $white;
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    font-size: 1.2rem;
+    justify-content: center;
+    padding: 10px 20px;
+    text-align: center;
+    &.selectable {
+      background-color: $secondary;
+      width: 100%;
+    }
+    &.results {
+      background-color: $flag-red;
+      margin-left: 10px;
+    }
+  }
+
+  .finished {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.container {
+  .title {
+    margin-top: 2rem;
+    width: 100%;
+  }
+  .main {
+    margin-top: 2rem;
+    .title {
+      color: $white;
+      margin-top: 0px;
+      padding: 30px;
+      text-align: center;
+    }
+  }
+}
+
+.help {
+  background-color: transparent;
+  border: none;
+  color: $primary;
+  cursor: help;
+  font-size: 2rem;
+  position: absolute;
+  right: 1rem;
+  top: calc($navbar-height + 1rem);
+}
+
+.progressbar {
+  margin: 20px auto;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .button {
+      background-color: $flag-red;
+      color: $white;
+      flex: 1;
+      font-size: 0.9rem;
+      padding: 0.25rem 0.5rem;
+      height: 30px;
+      max-width: 150px;
+
+      // border: 1px solid $primary;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    .title {
+      margin-top: 0rem;
+    }
+    .main {
+      margin-top: 0rem;
+    }
+  }
+}

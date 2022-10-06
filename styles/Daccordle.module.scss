@@ -1,0 +1,317 @@
+.daccordle {
+  max-width: 680px;
+}
+.title{
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+// .buttons {
+//   .button {
+//     background-color: transparent;
+//     border-radius: 10px;
+//     border: 1px solid $primary;
+//     font-size: 1rem;
+//     padding: 0.25rem 0.5rem;
+//     width: 100%;
+//   }
+// }
+
+.show {
+  background-color: $flag-red;
+  border-radius: 999px;
+  border: none;
+  font-size: 1.1rem;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  align-items: center;
+  background-color: $primary;
+  border-radius: 10px;
+  color: $white;
+  display: flex;
+  font-size: 1.3rem;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  padding: 0.05rem;
+  min-height: 90px;
+  width: 80%;
+  text-align: center;
+}
+
+.dialog {
+  padding: 2rem;
+  position: relative;
+  z-index: 92;
+  .close {
+    font-size: 2rem;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  .button {
+    background-color: $primary;
+    border: none;
+    color: $white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    &.participate {
+      align-items: center;
+      background-color: $flag-red;
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+  .results {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .share {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+    width: 100%;
+    .countdown {
+      .label {
+        font-size: 1.3rem;
+      }
+      .title {
+        margin: 0;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.gamewrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 10px;
+  .button {
+    background-color: $flag-red;
+    border-radius: 10px;
+    border: none;
+    color: $white;
+    font-size: 1.2rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    width: 100%;
+    &.backspace {
+      background-color: $secondary;
+      margin-right: 10px;
+    }
+    &.participate {
+      margin-right: 10px;
+    }
+  }
+}
+
+$candidate-box: 85px;
+
+.selectwrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  .selectpanel {
+    margin: 5px;
+    position: relative;
+    width: $candidate-box;
+  }
+  .select {
+    background-position: center;
+    background-size: cover;
+    flex: 1;
+    height: 100px;
+    max-width: $candidate-box;
+    min-width: $candidate-box;
+  }
+  .name {
+    align-items: center;
+    background: rgb(105 71 189 / 88%);
+    bottom: 0;
+    color: $white;
+    display: inline-flex;
+    justify-content: center;
+    position: absolute;
+    text-align: center;
+    width: $candidate-box;
+  }
+}
+
+$box-size: 45px;
+
+.items {
+  margin-bottom: 10px;
+  &.is-6 {
+    .level {
+      .item {
+        height: 58px;
+        min-width: 58px;
+        max-width: 58px;
+      }
+    }
+  }
+  &.is-7 {
+    .level {
+      .item {
+        height: 58px;
+        min-width: 58px;
+        max-width: 58px;
+      }
+    }
+  }
+  // &.is-3 {
+  //   .level {
+  //     .item {
+  //       height: $box-size * 1.2;
+  //       max-width: $box-size * 1.2;
+  //       min-width: $box-size * 1.2;
+  //     }
+  //   }
+  // }
+  // &.is-4 {
+  //   .level {
+  //     .item {
+  //       height: $box-size * 1.1;
+  //       max-width: $box-size * 1.1;
+  //       min-width: $box-size * 1.1;
+  //     }
+  //   }
+  // }
+  .level {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .item {
+      border: 1px solid #777777;
+      flex: 1;
+      height: $box-size;
+
+      margin: 1px;
+      max-width: $box-size;
+      min-width: $box-size;
+      .candidate {
+        background-size: cover;
+        height: 100%;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        
+      }
+      &.noselected {
+         background-color: gray;
+         .candidate {
+          opacity: 0.3;
+        }
+      }
+      &.selected {
+          z-index: 19;
+          background-color: #048f19;
+          border: 1px solid #048f19;
+        .candidate {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 0px) and (max-width: 480px) {
+  .gamewrapper {
+    max-width: 400px;
+    .items {
+      margin-bottom: 0px;
+    }
+  }
+  $candidate-box: 65px;
+
+  .daccordle {
+    padding: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .items {
+    &.is-6 {
+      .level {
+        .item {
+          height: 32px;
+          min-width: 32px;
+          max-width: 32px;
+        }
+      }
+    }
+    &.is-7 {
+      .level {
+        .item {
+          height: 32px;
+          min-width: 32px;
+          max-width: 32px;
+        }
+      }
+    }
+  }
+
+  .selectwrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    .selectpanel {
+      margin: 5px;
+      position: relative;
+      width: $candidate-box;
+      
+    }
+    .select {
+      background-position: center;
+      background-size: cover;
+      flex: 1;
+      height: 70px;
+      max-width: $candidate-box;
+      min-width: $candidate-box;
+      &.cselected{
+        opacity: 0.2;
+      }
+      &.nocselected{
+        opacity: 1.0;
+      }
+      
+    }
+    
+    .name {
+      font-size: 0.6rem;
+      width: $candidate-box;
+    }
+    
+  }
+  .card {
+    font-size: 1.1rem;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    padding: 0.4rem;
+    width: 90%;
+    min-height: 10px;
+  }
+
+}

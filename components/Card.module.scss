@@ -1,0 +1,117 @@
+.cardwrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-width: 225px;
+  flex: 1;
+  .card {
+    align-items: center;
+    background-color: $card-background;
+    border-radius: 12px;
+    color: $card-font-color;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: 1.25rem;
+    justify-content: center;
+    line-height: 1.5;
+    margin: 10px;
+    min-height: 280px;
+    padding: 1.2rem 0.9rem;
+    &:hover {
+      // filter: brightness(0.9);
+      background-color: $card-hover;
+      .card-footer {
+        background-color: darken($color: $card-hover, $amount: 15%) !important;
+      }
+    }
+    &:active,
+    &:focus {
+      // background-color: $white;
+    }
+    &.lite {
+      // border: 1px solid $card-background;
+      background-color: $card-lite-background;
+      border-radius: 0px;
+      color: $card-background;
+      font-size: 1rem;
+      min-height: fit-content;
+      padding: 10px;
+      .card-body {
+        // font-weight: 400;
+        color: $card-lite-color;
+        font-size: 1.1rem;
+        justify-content: center;
+        line-height: 1.5rem;
+        text-align: center;
+      }
+    }
+    // text-align: center;
+    .card-body {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      font-size: 1.25rem;
+      justify-content: center;
+      line-height: 1.8rem;
+      text-align: center;
+      width: 100%;
+      .icon {
+        height: 1.5rem;
+        margin: 0.25rem;
+        width: 1.5rem;
+      }
+    }
+
+    .card-footer {
+      // background-color: #23166f;
+      background-color: darken($color: $card-background, $amount: 15%);
+      border-radius: 99px;
+      color: $white;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  .multichoice {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    .item {
+      background-color: $light-2;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: 700;
+      margin: 0.25rem;
+      padding: 0.35rem 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .cardwrapper {
+    .card {
+      margin: 10px 20px;
+      min-height: 120px;
+      min-width: 250px;
+      padding: 0.8rem 0.7rem;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .cardwrapper {
+    .card {
+      &:hover {
+        // background-color: $accent-light;
+        box-shadow: 0px 2px 8px rgba(153, 84, 0, 0.5);
+      }
+    }
+  }
+}

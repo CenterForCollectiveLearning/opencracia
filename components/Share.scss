@@ -1,0 +1,53 @@
+@import "../library.scss";
+
+.share {
+  flex-direction: column;
+  min-height: 400px;
+  justify-content: space-between;
+  padding: 10px 20px;
+  &.embed {
+    min-height: 1px;
+  }
+  .head {
+    text-align: center;
+    .title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+  }
+  .icons {
+    display: flex;
+    flex-direction: row;
+    .icon {
+      border-radius: 999px;
+      color: $white;
+      display: flex;
+      font-size: 4rem;
+      height: 48px;
+      margin: 2px 10px;
+      padding: 10px;
+      width: 48px;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+      &:hover {
+        color: $white;
+        filter: brightness(0.8);
+      }
+      &.facebook {
+        background-color: #3B5998;
+      }
+      &.linkedin {
+        background-color: #0e76a8;
+      }
+      &.twitter {
+        background-color: #55ACEE;
+      }
+      &.whatsapp {
+        background-color: #25D366;
+      }
+    }
+  }
+  
+}

@@ -1,0 +1,115 @@
+.popupwrapper {
+  // background-color: $dark-1;
+  color: $font-color;
+}
+
+.popup {
+  padding: 20px;
+  .title {
+    margin: 1rem 0rem 0.5rem 0rem;
+    font-size: 1.1rem;
+  }
+  .bp3-slider-progress {
+    background-color: $accent-1;
+    &.bp3-intent-primary {
+      background-color: $accent-1;
+    }
+  }
+  .bp3-slider-handle {
+    background-color: $primary;
+    border-radius: 99px;
+    background-image: none;
+    .bp3-slider-label {
+      display: none;
+    }
+  }
+  // .bp3-control input:checked ~ .bp3-control-indicator {
+  //   background-color: $primary-background;
+  //   background-image: none;
+  // }
+}
+
+
+.question-wrapper {
+  margin-bottom: 20px;
+  .popup-select {
+    .button {
+      width: 160px;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  label {
+    font-size: 1rem;
+  }
+  .bp3-button-group {
+    width: 100%;
+    .bp3-button {
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      &.selected {
+        background: $primary;
+      }
+      .bp3-button-text {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.options {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .button {
+    background-color: $primary;
+    background-image: none;
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 0.5rem 1rem;
+    font-family: $text-font;
+    font-size: 1rem;
+    color: $white;
+    // font-weight: 700;
+    &:hover {
+      border: 1px solid $primary;
+      color: $black;
+    }
+    &.lite {
+      background-color: transparent;
+      border: 1px solid $primary;
+      color: $black;
+    }
+  }
+}
+
+.button-group {
+  display: flex;
+  margin-bottom: 0.5rem;
+  .button {
+    background-image: none !important;
+    box-shadow: none !important;
+    font-family: $text-font, sans-serif;
+    border: 1px solid $primary;
+    border-radius: 0px;
+    flex: 1;
+    text-align: center;
+    font-size: 1rem;
+    &.selected {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+.select-button {
+  background-image: none !important;
+  box-shadow: none !important;
+  font-family: $text-font, sans-serif;
+  border: 1px solid $primary;
+  border-radius: 0px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}

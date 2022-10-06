@@ -1,0 +1,27 @@
+@import "../library.scss";
+
+.page {
+  .hero {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 150px;
+    padding: 1rem 1rem;
+    .title {
+      margin: 0;
+    }
+  }
+  .content {
+    color: $font-color;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    margin: auto;
+    max-width: 800px;
+    min-height: 500px;
+    padding: 0;
+    h3 {
+      font-size: 1.6rem;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.collaborators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding:20px;
+  .logo {
+    height: 50px;
+    margin: 10px 20px;
+  }
+}

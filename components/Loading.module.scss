@@ -1,0 +1,14 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    color: $primary;
+    font-size: 2.4rem;
+    margin-right: 0.5rem;
+    width: 3rem;
+  }
+  .label {
+    font-size: 1.5rem;
+  }
+}

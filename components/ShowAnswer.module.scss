@@ -1,0 +1,35 @@
+.answer {
+  margin: 30px auto;
+  .candidate {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .side {
+      margin-right: 20px;
+      width: 80px;
+      .photo {
+        width: 80px;
+      }
+    }
+    .main {
+      flex: 1;
+      .proposal {
+        font-style: italic;
+      }
+      .title {
+        margin: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .toggle {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid $primary;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}

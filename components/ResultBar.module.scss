@@ -1,0 +1,51 @@
+.barwrapper {
+  margin-bottom: 0.5rem;
+  .bar {
+    background-color: $bar-background;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.15rem;
+    justify-content: space-between;
+    .rank, .label, .value {
+      padding: 0.75rem 0.5rem;
+    }
+    .rank {
+      align-items: center;
+      background-color: $bar-background;
+      border-radius: 10px;
+      color: $primary;
+      display: flex;
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 700;
+      justify-content: center;
+      max-width: 30px;
+      min-width: 30px;
+    }
+    .label {
+      align-items: center;
+      display: flex;
+      flex: 1;
+    }
+    .value {
+      font-weight: 700;
+      font-style: italic;
+      width: 60px;
+    }
+    &.is-open {
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+  }
+  .summary {
+    border-radius: 10px;
+    background-color: $toggle-background;
+    color: $dark-1;
+    padding: 0.25rem 0.5rem;
+    margin-top: -12px;
+    z-index: 0;
+    padding-top: 15px;
+  }
+}
