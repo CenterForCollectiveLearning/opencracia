@@ -56,6 +56,21 @@ export default function Navbar(props) {
     return selected ? `/${selected}` : "/";
   };
 
+  const menuItems = <>
+    <Link href="/">
+      <a className={classNames(styles.item, {[styles.selected]: selected === "participate"})} onClick={() => plausible("menu.participate")}>
+        <li className={styles.label}>{t("results.participate")}</li>
+      </a></Link>
+    <Link href="/proposals">
+      <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})} onClick={() => plausible("menu.proposals")}>
+        <li className={styles.label}>{t("menu.proposals")}</li>
+      </a></Link>
+    <Link href="/results">
+      <a className={classNames(styles.item, {[styles.selected]: selected === "results"})} onClick={() => plausible("menu.results")}>
+        <li className={styles.label}>{t("menu.results")}</li>
+      </a></Link>
+  </>;
+
   return <React.Fragment>
     <CustomHelmet title={hmTitle} {...hmProps} />
     <Drawer
@@ -66,26 +81,7 @@ export default function Navbar(props) {
     >
       {brand}
       <ul className={styles.items}>
-        <Link href="/">
-          <a className={classNames(styles.item, {[styles.selected]: selected === "participate"})} onClick={() => plausible("menu.participate")}>
-            <li className={styles.label}>{t("results.participate")}</li>
-          </a></Link>
-        <Link href="/about">
-          <a className={classNames(styles.item, {[styles.selected]: selected === "about"})} onClick={() => plausible("menu.about")}>
-            <li className={styles.label}>{t("menu.about")}</li>
-          </a></Link>
-        <Link href="/proposals">
-          <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})} onClick={() => plausible("menu.proposals")}>
-            <li className={styles.label}>{t("menu.proposals")}</li>
-          </a></Link>
-        <Link href="/results">
-          <a className={classNames(styles.item, {[styles.selected]: selected === "results"})} onClick={() => plausible("menu.results")}>
-            <li className={styles.label}>{t("menu.results")}</li>
-          </a></Link>
-        <Link href="/daccordle">
-          <a className={classNames(styles.item, {[styles.selected]: selected === "daccordle"})} onClick={() => plausible("menu.daccordle")}>
-            <li className={styles.label}>D&apos;accordle</li>
-          </a></Link>
+        {menuItems}
       </ul>
     </Drawer>
     <nav className={styles.navbar}>
@@ -95,35 +91,10 @@ export default function Navbar(props) {
           <FaBars />
         </div>
         {brand}
-        {/* <div>
-          {count ? <span className={styles.stat}>{numeral(count).format("0,0")} {t("menu.clicks")}</span> : <Loading />}
-        </div> */}
       </div>
-      {/* <div className={styles.flag}>
-        <img className={styles.img} src="/custom/flag.svg" alt="" />
-      </div> */}
       <div className={classNames(styles.grid, styles.desktop)}>
         <ul className={styles["navbar-items"]}>
-          <Link href="/">
-            <a className={classNames({[styles.selected]: selected === "participate"})} onClick={() => plausible("menu.participate")}>
-              <li>{t("results.participate")}</li>
-            </a></Link>
-          <Link href="/about">
-            <a className={classNames({[styles.selected]: selected === "about"})} onClick={() => plausible("menu.about")}>
-              <li>{t("menu.about")}</li>
-            </a></Link>
-          <Link href="/proposals">
-            <a className={classNames({[styles.selected]: selected === "proposals"})} onClick={() => plausible("menu.proposals")}> 
-              <li>{t("menu.proposals")}</li>
-            </a></Link>
-          <Link href="/results">
-            <a className={classNames({[styles.selected]: selected === "results"})} onClick={() => plausible("menu.results")}>
-              <li>{t("menu.results")}</li>
-            </a></Link>
-          <Link href="/daccordle">
-            <a className={classNames({[styles.selected]: selected === "daccordle"})} onClick={() => plausible("menu.daccordle")}>
-              <li>D&apos;accordle</li>
-            </a></Link>
+          {menuItems}
         </ul>
       </div>
       <div className={styles.langoptions}>

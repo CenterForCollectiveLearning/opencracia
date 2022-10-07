@@ -34,7 +34,7 @@ export default async function handler(req, res) {
 
   data.forEach(d => {
     d[6] = hashIp;
-    d[7] = score;
+    d[7] = 0.1;// score;
   });
 
   const sql = format("INSERT INTO agree (user_id, proposal_id, agree, universe, locale, option, ip_hash, score) VALUES %L", data);

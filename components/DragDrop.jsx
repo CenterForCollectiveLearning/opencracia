@@ -60,11 +60,14 @@ export default class DragDrop extends Component {
     
   componentDidMount() {
     const items = this.props.data;
-    items.forEach((d, i) => {
-      d.pos = i + 1;
-    });
 
-    this.setState({items});
+    this.setState({
+      items : items.map((d, i) => ({
+        ...d,
+        id: d.id.toString(),
+        pos: i + 1
+      }))
+    });
   }
 
   onClickMove(item, move) {
@@ -107,6 +110,8 @@ export default class DragDrop extends Component {
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
+    const lang = "fr";
+
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
@@ -142,7 +147,7 @@ export default class DragDrop extends Component {
                       <div
                         className={styles.item}
                       >
-                        <div>{item.name}</div>
+                        <div>{item[lang]}</div>
                         <div className={styles.move}>
                           {index > 0 && <button
                             onClick={() => this.onClickMove(item, "up")}

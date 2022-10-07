@@ -29,10 +29,10 @@ export default async function handler(req, res) {
   // const ipData = await axios.get(`http://ip-api.com/json/${publicIpV4}`).then(resp => resp.data);
 
   const hashIp = hmacSHA512(publicIpV4, SECRET_KEY).toString();
-  
+  // # TODO score
   pool.query(
     "INSERT INTO rank (user_id, ip_hash, rank, universe, updated, score, locale) VALUES ($1, $2, $3, $4, $5, $6, $7)", 
-    [user_id, hashIp, rank, universe, updated, score, locale], 
+    [user_id, hashIp, rank, universe, updated, 0.1, locale], 
     (error, result) => {
       if (error) {
         console.log(error);

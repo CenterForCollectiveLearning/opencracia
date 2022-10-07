@@ -26,9 +26,6 @@ sudo nano /etc/postgresql/12/main/pg_hba.conf
 
 CREATE ROLE user_mp WITH ENCRYPTED PASSWORD 'v#?YERrN924ec^y+';
 CREATE DATABASE db_mon_programme OWNER user_mp;
-# GRANT ALL PRIVILEGES ON DATABASE db_project_jd TO user_jd;
-# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO user_jd;
-# GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_jd;
 
 GRANT ALL PRIVILEGES ON DATABASE db_mon_programme TO user_mp;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO user_mp;
@@ -108,8 +105,8 @@ CREATE TABLE IF NOT EXISTS access_log(
     user_id UUID,
     ip_hash VARCHAR,
     universe INT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
 
 CREATE TABLE IF NOT EXISTS game(
     id SERIAL PRIMARY KEY,
@@ -132,7 +129,6 @@ CREATE TABLE IF NOT EXISTS game_participant(
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-<<<<<<< HEAD
 # CREATE TABLE IF NOT EXISTS individual_participation(
 #     id SERIAL PRIMARY KEY,
 #     user_id UUID NOT NULL,
@@ -141,9 +137,6 @@ CREATE TABLE IF NOT EXISTS game_participant(
 #     appreared_times INT NOT NULL,
 #     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 # );
-=======
-ALTER TABLE consent ADD COLUMN url TEXT NULL;
->>>>>>> 83b02860f85470c4fe77e4e2d9fdd6beb8899a11
 
 
 scp navarrete@condorcet:db.sql ~./db.sql
