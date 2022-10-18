@@ -14,12 +14,16 @@ import useTranslation from "next-translate/useTranslation";
 import CustomHelmet from "./CustomHelmet";
 import {FaAlignJustify, FaBars} from "react-icons/fa";
 import {usePlausible} from "next-plausible";
-
+import {useSelector} from "react-redux";
+import store, {languages} from "../store/store";
 
 export default function Navbar(props) {
-  const {callback=undefined, comparison = undefined, hmProps = {}, hmTitle = config.title, logo = "/logos/monprogramme.svg", selected = undefined} = props;
+
+  const {callback=undefined, comparison = undefined, hmProps = {}, hmTitle = config.title, logo = "/logos/opencracia.svg", selected = undefined} = props;
   const [isOpen, setIsOpen] = useState(false);
   const [count, setCount] = useState(undefined);
+
+  const {languages} = useSelector(state => state.languages);
 
   const {lang, t} = useTranslation("translation");
   const plausible = usePlausible();
@@ -98,17 +102,9 @@ export default function Navbar(props) {
         </ul>
       </div>
       <div className={styles.langoptions}>
-        {/* <Link href={redirectUrl} locale={"fr"} key={"fr"}> */}
-        <a href={redirectUrl("fr")} className={classNames(styles.lang, {[styles.selected]: lang === "fr"})} onClick={() => plausible("navbar.fr")}><span>FR</span></a>
-        {/* </Link> */}
-          |
-        {/* <Link href={redirectUrl} locale={"en"} key={"en"}> */}
-        <a href={redirectUrl("en")} className={classNames(styles.lang, {[styles.selected]: lang === "en"})} onClick={() => plausible("navbar.en")}><span>EN</span></a>
-        {/* </Link> */}
-          |
-        {/* <Link href={redirectUrl} locale={"es"} key={"es"}> */}
-        <a href={redirectUrl("es")} className={classNames(styles.lang, {[styles.selected]: lang === "es"})} onClick={() => plausible("navbar.es")}><span>ES</span></a>
-        {/* </Link> */}
+        {languages.map((l, i) => <div key={`langs_${i}`}>
+          <a href={redirectUrl(l)} className={classNames(styles.lang, {[styles.selected]: lang === l})}><span>{l}</span></a>
+        </div>)}
       </div>
     </nav>
   </React.Fragment>;

@@ -90,6 +90,28 @@ CREATE TABLE IF NOT EXISTS access_log(
 );
 ```
 
+## Platforms in multiple languages
+
+One can create the platform in many languages (lang = en, es, pt, ?). The files inside the folder "locales/{lang}" are used to create all the elements' labels. 
+
+In order to create these files, you can create a .tsv on the following format:
+
+|       key        |        en        |        es        |        pt        |
+|   ------------   |   ------------   |   ------------   |   ------------   |
+|   website.name   |    Opencracia    |    Opencracia    |    Opencracia    |
+|   menu.results   |    Results       |    Resultados    |    Resultados    |
+
+
+Then, run the following python file:
+Don't forget to change the path for the .tsv file. 
+Either you add the file inside the folder "public/data/opencracia_elements.tsv"
+or you can connect to a Google Sheets file (on the Google Sheets file, click on: File -> Share -> Publish to web -> Publish as .tsv -> use this link).  
+
+```
+python scripts/updateElementTitles.py 
+```
+
+
 ## Platforms inspired by Opencracia
 
 - [Mon Programme 2022](https://monprogramme2022.org): A digital tool to create a government program for the 2022 French Presidential Election.

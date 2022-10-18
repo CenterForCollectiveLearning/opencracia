@@ -14,6 +14,18 @@ export const users = createSlice({
   }
 });
 
+export const languages = createSlice({
+  name: "languages",
+  initialState: {
+    languages: ["en","es"]
+  },
+  reducers:{
+    updateLanguages(state, action) {
+      state.languages = action.payload;
+    }
+  }
+});
+
 export const screens = createSlice({
   name: "screens",
   initialState: {
@@ -33,7 +45,7 @@ export const properties = createSlice({
     data: [],
     dataChunks: [],
     subBallotPos: 0,
-    module: "fallback"
+    module: "falbback"
   },
   reducers: {
     updateBallotSize(state, action) {
@@ -56,7 +68,8 @@ const store = configureStore({
   reducer: {
     properties: properties.reducer,
     screens: screens.reducer,
-    users: users.reducer
+    users: users.reducer,
+    languages: languages.reducer
   }
 });
 

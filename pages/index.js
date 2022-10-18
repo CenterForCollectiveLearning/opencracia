@@ -92,10 +92,10 @@ export default function Proposal(props) {
         user_id: token
       })
     };
+
     const validate = await fetch("/api/validate", requestOptions)
       .then(resp => resp.json());
 
-    
     const participation = await fetch("/api/getParticipation", requestOptions)
       .then(resp => resp.json());
 

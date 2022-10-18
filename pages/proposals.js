@@ -12,11 +12,13 @@ export default function Proposals() {
   
   useEffect(async() => {
     const tmp = await fetch("/api/proposals").then(resp => resp.json());
-    
+
     const tmpObj = tmp.reduce((obj, d) => {
       const label = d[`${lang}_category`];
-      if (!obj[label]) obj[label] = [];
-      obj[label].push(d);
+      if (label !== ""){
+        if (!obj[label]) obj[label] = [];
+        obj[label].push(d);
+      }
       return obj;
     }, {});
 
@@ -26,7 +28,7 @@ export default function Proposals() {
 
   const title = <h1 className="title">{t("menu.proposals")}</h1>;
   const nav =<Navbar
-    hmTitle={`${t("menu.proposals")} / MonProgramme`}
+    hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
     selected="proposals" />;
 
   if (loading) {

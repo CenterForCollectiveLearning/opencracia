@@ -1,11 +1,10 @@
 module.exports = {
   i18n: {
-    defaultLocale: "fr",
-    keySeparator: ".",
+    defaultLocale: "en",
     localeDetection: false,
-    locales: ["fr", "es", "en"]
+    locales: ["en", "es"]
   },
-  title: "MonProgramme",
+  title: "Opencracia",
   keys: {
     identifier: "mptoken",
     universe: "mpuniverse"

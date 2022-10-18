@@ -1,10 +1,9 @@
 {
   "locales": [
-    "fr",
     "en",
     "es"
   ],
-  "defaultLocale": "fr",
+  "defaultLocale": "en",
   "pages": {
     "*": [
       "translation"
