@@ -33,7 +33,7 @@ export const properties = createSlice({
     data: [],
     dataChunks: [],
     subBallotPos: 0,
-    module: "rank"
+    module: "fallback"
   },
   reducers: {
     updateBallotSize(state, action) {

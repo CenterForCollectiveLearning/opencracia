@@ -12,7 +12,7 @@ import {useSelector} from "react-redux";
 import store, {properties, users} from "../store/store";
 
 export default function Rank(props) {
-  const {data} = props; // dataFiltered
+  const {data, isFallback=false} = props; // dataFiltered
   const [state, setState] = useState({
     dataRanked: data,
     updated: 0
@@ -42,7 +42,10 @@ export default function Rank(props) {
     fetch("/api/createRank", requestOptions);
 
     window.scrollTo(0, 0);
+    if (isFallback)
+      props.callback();
     store.dispatch(properties.actions.updateSubBallotPos(subBallotPos + 1));
+
     setState({
       ...state,
       updated: 0

@@ -17,7 +17,7 @@ const sample = (array, n) => {
 };
 
 export default function Approval(props) {
-  const {callback, data, dataSelectedAll} = props;
+  const {callback, data, dataSelectedAll, isFallback=false} = props;
   const [state, setState] = useState({
     selected: [],
     selectedAll: dataSelectedAll
@@ -45,7 +45,10 @@ export default function Approval(props) {
 
     window.scrollTo(0, 0);
     setState(newState);
-    store.dispatch(properties.actions.updateSubBallotPos(subBallotPos + 1));
+    if (!isFallback)
+      store.dispatch(properties.actions.updateSubBallotPos(subBallotPos + 1));
+    else 
+      callback();
   };
 
   return <main className={styles.main}>

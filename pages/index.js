@@ -21,6 +21,7 @@ import Rank from "../modules/Rank";
 import Approval from "../modules/Approval";
 
 import store, {properties, users} from "../store/store";
+import Fallback from "../modules/Fallback";
 
 export default function Proposal(props) {
   const [state, setState] = useState({
@@ -215,6 +216,13 @@ export default function Proposal(props) {
     />;
   }
 
+  else if (module === "fallback") {
+    frameModule = <Fallback
+      data={dataChunks[subBallotPos]}
+      dataSelectedAll={dataSelectedAll}
+    />;
+  }
+
   return <>
     <div className={styles.container}>
       {Nav}
@@ -225,38 +233,6 @@ export default function Proposal(props) {
     {/* {consentForm} */}
   </>;
 
-
-
-  if (!dragdrop && (dataLevel.length > pos)) {
-    return <div className={styles.container}>
-      {Nav}
-      {title()}
-      {helpButton}
-      <Approval 
-        data={dataLevel[pos]}
-        dataSelected={dataSelected}
-        dataSelectedAll={dataSelectedAll}
-      />
-      {progressBar}
-      {popupResults}
-      {consentForm}
-    </div>;
-  }
-
-  else {
-    return <div className={styles.container}>
-      {Nav}
-      {helpButton}
-      <div className={styles.comparison}>
-        {title(t("main.dragdrop"))}
-      </div>
-      <Rank 
-        data={dataFiltered}
-      />
-      {progressBar}
-      {consentForm}
-    </div>;
-  }
 }
 
 export async function getStaticProps() {
