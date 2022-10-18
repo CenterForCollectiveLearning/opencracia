@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS access_log(
 
 ## Platforms in multiple languages
 
-One can create the platform in many languages (lang = en, es, pt, ?). The files inside the folder "locales/{lang}" are used to create all the elements' labels. 
+One can create the platform in many languages (e.g. lang = "en,es,pt"). The files inside the folder "locales/{lang}" are used to create all the elements' labels. 
 
 In order to create these files, you can create a .tsv on the following format:
 
