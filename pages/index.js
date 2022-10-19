@@ -69,6 +69,7 @@ export default function Proposal(props) {
   const {token} = useSelector(state => state.users);
 
   useEffect(async() => {
+
     const data = props.data;
     store.dispatch(properties.actions.updateData(data));
 

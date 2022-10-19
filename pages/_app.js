@@ -21,20 +21,22 @@ import {shuffle} from "../helpers/utils";
 // This default export is required in a new `pages/_app.js` file.
 function MyApp({Component, pageProps}) {
 
-  const description = "Plateforme qui permet aux citoyens de sélectionner et classer plus de 100 propositions extraites des programmes gouvernementaux des principaux candidats à l'élection présidentielle de 2022.";
-  const image = "https://monprogramme2022.org/opengraph/desktop.jpg";
-  const keywords = "daccordle,monprogramme,elections,presidentielle,france,president france,présidentielle 2022,mon programme 2022";
-  const primaryLanguage = "fr";
-  const title = "Mon Programme 2022";
+  const description = "";
+  const image = "https://demo.opencracia.org/opengraph/desktop.jpg";
+  const keywords = "opencracia,monprogramme,brazucracia,chilecracia,elections";
+  const primaryLanguage = "en";
+  const title = "Opencracia";
   const twitter = "@LearningCCL";
-  const url = "https://monprogramme2022.org/";
+  const url = "https://demo.opencracia.org/";
 
   useEffect(async() => {
     const token = localStorage.getItem("mptoken");
     if (!token) 
       localStorage.setItem("mptoken", uuidv4());
       
-    
+    const module = shuffle(process.env.UNIVERSES.split(","))[0];
+    store.dispatch(properties.actions.updateModule(module));
+
     const universe = localStorage.getItem("mpuniverse");
     if (!universe) {
       const universes = [4, 5, 6];

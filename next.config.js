@@ -14,7 +14,9 @@ module.exports = withTM(nextTranslate({
     prependData: "@import './styles/_variables.scss';",
   },
   env: {
-    LANGUAGES : process.env.LANGUAGES
+    LANGUAGES : process.env.LANGUAGES,
+    UNIVERSES: process.env.UNIVERSES
+
   },
   async rewrites() {
     return [

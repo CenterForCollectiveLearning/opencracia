@@ -14,6 +14,7 @@ export const users = createSlice({
   }
 });
 
+
 export const languages = createSlice({
   name: "languages",
   initialState: {
@@ -45,7 +46,7 @@ export const properties = createSlice({
     data: [],
     dataChunks: [],
     subBallotPos: 0,
-    module: "falbback"
+    module: undefined
   },
   reducers: {
     updateBallotSize(state, action) {
@@ -59,7 +60,10 @@ export const properties = createSlice({
     },
     updateSubBallotPos(state, action) {
       state.subBallotPos = action.payload;
-    }
+    },
+    updateModule(state, action) {
+      state.module = action.payload;
+    },
   },
 });
 
