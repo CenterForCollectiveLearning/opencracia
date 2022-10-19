@@ -6,9 +6,10 @@ import simplejson as json
 import tqdm
 from datetime import datetime, timezone
 from sqlalchemy import create_engine
+from urllib.parse import quote 
 
 # ENV_VAR = os.getenv("DATABASE_URL", None)
-ENV_VAR = "postgresql://user_mp:v#?YERrN924ec^y+@localhost:5432/db_mon_programme"
+ENV_VAR = "postgresql://user_br:%s@localhost:5432/db_escolhe_ai_2022"%quote('br@zild@t@2022')
 engine = create_engine(ENV_VAR)
 
 df1 = pd.read_sql_query("SELECT * FROM agree WHERE score > 0.7 AND agree != -1", con=engine)

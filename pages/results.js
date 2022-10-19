@@ -34,101 +34,6 @@ export function copyToClipboard(text) {
   document.body.removeChild(dummy);
 }
 
-function AgePlot(props) {
-  const {t} = useTranslation("translation");
-  const [isOpen, setIsOpen] = useState(true);
-  const {data, title} = props;
-
-  if (data.length > 1){
-    const filteredData = isOpen ? data.slice(0, 5) : data;
-
-    const label = !isOpen ? "results.toggle-show" : "results.toggle-hide";
-    
-    return <div>
-      <h2 className="is-center">{title}</h2>
-      <ShowAgePlot data={data} />
-    </div>;
-  }
-
-  return <div></div>;
-}
-
-function GenderPlot(props) {
-  const {t} = useTranslation("translation");
-  const [isOpen, setIsOpen] = useState(true);
-  const {data, title} = props;
-
-  if (data.length > 1){
-    const filteredData = isOpen ? data.slice(0, 5) : data;
-
-    const label = !isOpen ? "results.toggle-show" : "results.toggle-hide";
-    
-    return <div>
-      <h2 className="is-center">{title}</h2>
-      <ShowGenderPlot data={data} />
-    </div>;
-  }
-
-  return <div></div>;
-}
-
-function EducationPlot(props) {
-  const {t} = useTranslation("translation");
-  const [isOpen, setIsOpen] = useState(true);
-  const {data, title} = props;
-
-  if (data.length > 1){
-    const filteredData = isOpen ? data.slice(0, 5) : data;
-
-    const label = !isOpen ? "results.toggle-show" : "results.toggle-hide";
-    
-    return <div>
-      <h2 className="is-center">{title}</h2>
-      <ShowEducationPlot data={data} />
-    </div>;
-  }
-
-  return <div></div>;
-}
-
-function PoliticsPartiesPlot(props) {
-  const {t} = useTranslation("translation");
-  const [isOpen, setIsOpen] = useState(true);
-  const {data, title} = props;
-
-  if (data.length > 1){
-    const filteredData = isOpen ? data.slice(0, 5) : data;
-
-    const label = !isOpen ? "results.toggle-show" : "results.toggle-hide";
-    
-    return <div>
-      <h2 className="is-center">{title}</h2>
-      <ShowPartiesPlot data={data} />
-    </div>;
-  }
-
-  return <div></div>;
-}
-
-function DemoMap(props) {
-  const {t} = useTranslation("translation");
-  const [isOpen, setIsOpen] = useState(true);
-  const {data, title} = props;
-
-  const filteredData = isOpen ? data.slice(0, 5) : data;
-
-  const label = !isOpen ? "results.toggle-show" : "results.toggle-hide";
-
-  if (data.length > 1){
-    return <div>
-      <h2 className="is-center">{title}</h2>
-      <ShowDemoMap data={data} />
-    </div>;
-  }
-
-  return <div></div>;
-}
-
 
 const scale = (value, old_min, old_max, new_max, new_min) => ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min;
 
@@ -184,7 +89,7 @@ export default function Results() {
   const [state, setState] = useState({
     agreements: [], count: 0, data: [], disagreements: [], loading: true, proposals: [], overall: [], mapDemographics:[], genderDemographics:[], partiesDemographics:[], educationDemographics:[], ageDemographics:[]
   });
-  const {agreements, count, data, disagreements, loading, proposals, overall, mapDemographics, genderDemographics, partiesDemographics, educationDemographics, ageDemographics} = state;
+  const {agreements, count, data, disagreements, loading, proposals, overall} = state;
 
   const THRESHOLD_COUNT = 10;
   const {lang, t} = useTranslation("translation");
@@ -229,9 +134,10 @@ export default function Results() {
         user_id: localStorage.getItem("mptoken")
       })
     };
-    let {data, count} = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
     const proposals = await fetch("/api/proposals").then(resp => resp.json());
+    let {data, count} = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
     const overall = await fetch("/results.json").then(resp => resp.json());
+
     let _ = overall.data;
     _.forEach(d => {
       const item = proposals.find(h => d.id * 1 === h.id * 1) || {};
@@ -244,8 +150,6 @@ export default function Results() {
     agreements.forEach((d, i) => {
       d.backgroundColor = interpolatePlasma(i / agreements.length);
     });
-    const disagreements = _.slice().filter(d => d.divisiveness !== null);
-    disagreements.sort((a, b) => b.divisiveness - a.divisiveness);
 
     data.forEach(d => {
       const item = proposals.find(h => d.id * 1 === h.id * 1) || {};
@@ -254,14 +158,7 @@ export default function Results() {
       d.name = item.name || item[lang] || undefined;
     });
     data = data.filter(d => d.name !== undefined);
-    console;
     
-
-    const mapDemographics = await fetch("/api/mapDemographics").then(resp => catchErrorFunction (resp));
-    const genderDemographics = await fetch("/api/genderDemographics").then(resp => resp.json());
-    const partiesDemographics = await fetch("/api/partiesDemographics").then(resp => resp.json());
-    const educationDemographics = await fetch("/api/educationDemographics").then(resp => resp.json());
-    const ageDemographics = await fetch("/api/ageDemographics").then(resp => resp.json());
     // const getPreferences = await fetch("/api/getPreferences").then(resp => resp.json());
     const getUsers = await fetch("/api/getUsers").then(resp => resp.json());
 
@@ -271,12 +168,12 @@ export default function Results() {
     // });
     numberPeople = getUsers[0].count;
     
-    setState({...state, agreements, count, data, disagreements, loading: false, proposals, overall: overall.data, mapDemographics, genderDemographics, partiesDemographics, educationDemographics, ageDemographics});
+    setState({...state, agreements, count, data, loading: false, proposals, overall: overall.data,});
   }, []);
 
   const title = <h1 className="title">{t("results.title")}</h1>;
   const navBar =<Navbar
-    hmTitle={`${t("results.title")} / MonProgramme`}
+    hmTitle={`${t("results.title")} / ${t("website.name")}`}
     selected="results"
   />;
 
@@ -331,43 +228,8 @@ export default function Results() {
           value="agreement"
           backgroundColor="#EAEAEA"
         />
-        <Rank
-          data={disagreements}
-          footnote={t("results.disagreements-text")}
-          title={"results.disagreements-title"}
-          value="divisiveness"
-          backgroundColor="#EF4135"
-          summary={false}
-        />
       </div>
       
-    </div>
-
-    <div>
-      <h1 className="title">{t("statistics.title")}</h1>
-      <div className="columns">
-        <div className="column">
-          <DemoMap data={mapDemographics} title={t("results.map-title")}/>
-        </div>
-        <div className="column">
-          <div className="columns">
-            <div className="column">
-              <GenderPlot data={genderDemographics} title={t("results.sex-title")}/>
-              <AgePlot data={ageDemographics} title={t("results.age-title")}/>
-            </div>
-            <div className="column">
-              <PoliticsPartiesPlot data={partiesDemographics} title={t("popup.politics-title")}/>
-              <EducationPlot data={educationDemographics} title={t("results.education-title")}/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Toaster ref={refHandlers} usePortal={false} position={Position.TOP} >
-        {/* <Toast
-          intent={Intent.DANGER}
-          message="No pudimos almacenar tu respuesta. Inténtalo más tarde."
-        /> */}
-      </Toaster>
     </div>
 
   </>;
