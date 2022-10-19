@@ -5,34 +5,33 @@ import pandas as pd
 import json
 from datetime import datetime
 from sqlalchemy import create_engine
-
+from urllib.parse import quote  
 import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # ENV_VAR = os.getenv("DATABASE_URL", None)
-ENV_VAR = "postgresql://user_mp:v#?YERrN924ec^y+@localhost:5432/db_mon_programme"
+ENV_VAR = "postgresql://user_br:%s@localhost:5432/db_escolhe_ai_2022"%quote('br@zild@t@2022')
 engine = create_engine(ENV_VAR)
 
-# df1 = pd.read_sql_query("SELECT DISTINCT * FROM game", con=engine)
-# already_played = []
-# if len(df1) > 0:
-#     df1["proposal_id"] = df1["proposal_id"].astype(int)
-#     already_played = list(df1["proposal_id"].astype(int).unique())
+candidates__ = {
+    "Bolsonaro" : 1,
+    "Lula" : 2,
+    "Ciro" : 3,
+    "Simone" : 4,
+    "d'Avila" : 5,
+    "Soraya" : 6,
+}
 
-filename_prop_cand = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4gIavqKNazbpM6YhZJsnPeGdQt_SOgCrPirNLiULSp18MjTL4AlttpCc8Tjb9OPpynb6X4dbac4_o/pub?gid=1505112015&single=true&output=tsv"
-proposals = pd.read_csv(filename_prop_cand, delimiter="\t")
+def replace_id(x):
+    for c in str(x).split(";"):
+        x = str(x).replace(c, str(candidates__[c]))
+    return x
+
+filename_prop_cand = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSrCKrBSvYK6Fi9zrI8zBpoo3nWJs7LHWoOkPHr4bp70RDBPErnTla3ECSHN2-oyA/pub?gid=1937868951&single=true&output=tsv"
+proposals = pd.read_csv(filename_prop_cand, delimiter="\t", lineterminator='\n')
+proposals.drop(columns=proposals.columns[-3:], inplace=True)
+proposals = proposals[proposals['proposal_id'].notna()]
 proposals['proposal_id'] = proposals['proposal_id'].astype(int)
-# proposals['candidate_ids'] = proposals['candidate_ids'].apply(lambda x: [int(xi) for xi in x.split(";")])
-# print(proposals)
-# location = os.path.dirname(os.path.abspath(__file__))
-# location = location.replace("scripts", "public/results.json")
-# with open(location, "r") as read_file:
-#     data = json.load(read_file)
-
-# disagreements = pd.read_json(data["data"], orient='records')
-# disagreements['id'] = disagreements['id'].astype(int)
-# sorted_proposals = disagreements[~disagreements['id'].isin(already_played)].sort_values(by='divisiveness', ascending=False)['id'].values
-
-# proposals[proposals['proposal_id']==sorted_proposals[0]].head(1).to_sql('game', con=engine, if_exists='replace')
+proposals['candidate_ids'] = proposals['candidate_ids'].apply(lambda x: replace_id(x))
 proposals[['proposal_id','candidate_ids','start_date','source_link','source_text']].to_sql('game', con=engine, if_exists='replace')

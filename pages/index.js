@@ -55,6 +55,7 @@ export default function Proposal(props) {
     loading,
     pos
   } = state;
+  
   const {lang, t} = useTranslation("translation");
   
   const {
@@ -129,7 +130,7 @@ export default function Proposal(props) {
     });
   }, []);
 
-  const Nav = <Navbar hmTitle={"MonProgramme"} />;
+  const Nav = <Navbar hmTitle={t("website.name")} />;
   const helpButton = <button className={styles.help} 
     onClick={() => {
       setState({
