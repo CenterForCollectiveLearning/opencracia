@@ -16,48 +16,66 @@ pool.on("connect", () => {
  */
 const createTables = () => {
   const queryText =
-    `CREATE TABLE IF NOT EXISTS
-      votes(
-        id SERIAL PRIMARY KEY,
-        uuid UUID NOT NULL,
-        ip_hash VARCHAR NOT NULL,
-        option_a INT NOT NULL,
-        option_b INT NOT NULL,
-        selected INT NOT NULL,
-        datetime TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-        score DECIMAL NOT NULL
-      );
-    `;
-
-  const queryParticipants = 
-  `
-    CREATE TABLE IF NOT EXISTS
-      participants(
-        id SERIAL PRIMARY KEY,
-        uuid UUID NOT NULL,
-        ip_hash VARCHAR NOT NULL,
-        politica INT NOT NULL,
-        location VARCHAR NOT NULL,
-        age INT NOT NULL,
-        sex VARCHAR NOT NULL,
-        datetime TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-        score DECIMAL NOT NULL
-      );
+    `CREATE TABLE IF NOT EXISTS agree(
+      id SERIAL PRIMARY KEY,
+      user_id UUID NOT NULL,
+      ip_hash VARCHAR NOT NULL,
+      proposal_id INT NOT NULL,
+      agree INT NOT NULL,
+      universe INT NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      score DECIMAL NOT NULL,
+      locale VARCHAR NOT NULL,
+      option VARCHAR
+    );
+    
+    CREATE TABLE IF NOT EXISTS consent(
+      id SERIAL PRIMARY KEY,
+      user_id UUID NOT NULL,
+      ip_hash VARCHAR NOT NULL,
+      universe INT NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      locale VARCHAR NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS rank(
+      id SERIAL PRIMARY KEY,
+      user_id UUID NOT NULL,
+      ip_hash VARCHAR NOT NULL,
+      rank VARCHAR NOT NULL,
+      updated INT NOT NULL,
+      universe INT NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      score DECIMAL NOT NULL,
+      locale VARCHAR NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS participant(
+      id SERIAL PRIMARY KEY,
+      user_id UUID NOT NULL,
+      ip_hash VARCHAR NOT NULL,
+      politics_id INT NOT NULL,
+      location_id VARCHAR NOT NULL,
+      age_id INT NOT NULL,
+      sex_id VARCHAR NOT NULL,
+      zone_id INT NOT NULL,
+      education_id INT NOT NULL,
+      universe INT NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      score DECIMAL NOT NULL,
+      locale VARCHAR NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS access_log(
+      id SERIAL PRIMARY KEY,
+      user_id UUID,
+      ip_hash VARCHAR,
+      universe INT,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
   `;
 
-
   pool.query(queryText)
-    .then((res) => {
-      console.log(res);
-      pool.end();
-    })
-    .catch((err) => {
-      console.log(err);
-      pool.end();
-    });
-  
-  // Creates table of participants
-  pool.query(queryParticipants)
     .then((res) => {
       console.log(res);
       pool.end();

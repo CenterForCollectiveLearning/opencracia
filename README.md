@@ -1,6 +1,12 @@
 # Opencracia
 
-Opencracia is an open source tool to encourage citizens to release their own instances of digital democracy.
+Opencracia is an open-source framework that empowers communities, citizens and activists to create their own digital democracy platforms. 
+
+The software aims to give users the ability to find their own opinion as well as the collective opinion of the proposals provided by the creators via a series of approvals and preferences. 
+
+Opencracia incorporates lessons from our seven previous platforms that showed promising results in expanding the understanding of collective preferences. In addition, we included methods taken from social choice theory, the formal study of collective decision-making, into the framework. 
+
+The interface of Opencracia is built for accessibility, flexibility and a mobile-friendly experience.
 
 ## Getting started
 
@@ -8,101 +14,72 @@ Set up Opencracia by cloning the template:
 ```
 git clone https://github.com/CenterForCollectiveLearning/opencracia.git
 ```
+### Set Up Parameters and Environment
 
-Then, a set of env vars need to be initialized:
-
+After you clone the template, you need to config two files before to start. The file `opencracia.config.json` includes the settings to run and deploy your platform.
 ```
-export CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=1308120853&single=true&output=tsv"
-export DATABASE_URL=postgresql://user_br:br@zild@t@2022@localhost:5432/db_escolhe_ai_2022
-export RECAPTCHA_SECRET_KEY=6LfdnhciAAAAAH5DcyJfZtqHtlMJKZkUNck22OBY
-export RECAPTCHA_SECRET_KEY_V3=6LfdnhciAAAAAH5DcyJfZtqHtlMJKZkUNck22OBY
-export LANGUAGES="en,es,fr"
-export UNIVERSES="pairwise,fallback,approval"
-export SECRET_KEY="p@r1$"
-```
-
-## Modules
-
-Currently, Opencracia supports four modules for participation: Pairwise comparison, Approval voting, Ranking voting, and Fallback voting.
-
-## Database
-
-Opencracia is built to store data on PostgreSQL.
-```
-CREATE ROLE my_user WITH ENCRYPTED PASSWORD 'my_password';
-CREATE DATABASE my_database OWNER my_user;
-
-GRANT ALL PRIVILEGES ON DATABASE my_database TO my_user;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO my_user;
-
-ALTER ROLE my_user WITH LOGIN;
+{
+  "title": "Opencracia",
+  "languages": ["en", "es"],
+  "module": "approval",
+  "proposals": "CSV_FILE_URL",
+  "ballotSize": 5
+}
 ```
 
-```
-psql -d my_database -h 127.0.0.1 -U my_user
-```
+Next, you need to set up the environment variables in order to connect the platform with your database. For this, you need to define three env variables: Database connection, reCaptcha and a secret key to encrypt the IP address.
 
 ```
-CREATE TABLE IF NOT EXISTS agree(
-  id SERIAL PRIMARY KEY,
-  user_id UUID NOT NULL,
-  ip_hash VARCHAR NOT NULL,
-  proposal_id INT NOT NULL,
-  agree INT NOT NULL,
-  universe INT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  score DECIMAL NOT NULL,
-  locale VARCHAR NOT NULL,
-  option VARCHAR
-);
-
-CREATE TABLE IF NOT EXISTS consent(
-  id SERIAL PRIMARY KEY,
-  user_id UUID NOT NULL,
-  ip_hash VARCHAR NOT NULL,
-  universe INT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  locale VARCHAR NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS rank(
-  id SERIAL PRIMARY KEY,
-  user_id UUID NOT NULL,
-  ip_hash VARCHAR NOT NULL,
-  rank VARCHAR NOT NULL,
-  updated INT NOT NULL,
-  universe INT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  score DECIMAL NOT NULL,
-  locale VARCHAR NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS participant(
-  id SERIAL PRIMARY KEY,
-  user_id UUID NOT NULL,
-  ip_hash VARCHAR NOT NULL,
-  politics_id INT NOT NULL,
-  location_id VARCHAR NOT NULL,
-  age_id INT NOT NULL,
-  sex_id VARCHAR NOT NULL,
-  zone_id INT NOT NULL,
-  education_id INT NOT NULL,
-  universe INT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  score DECIMAL NOT NULL,
-  locale VARCHAR NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS access_log(
-  id SERIAL PRIMARY KEY,
-  user_id UUID,
-  ip_hash VARCHAR,
-  universe INT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
+export DATABASE_URL=postgresql://my_user:my_password@localhost:5432/my_db
+export RECAPTCHA_SECRET_KEY_V3="RECAPTCHA_SECRET_KEY"
+export SECRET_KEY="ny_secret_key"
 ```
 
-## Platforms in multiple languages
+The main difference between those files is that as long as `opencracia.config.json` includes public variables that can be stored in a repository, `.env` file includes private values that you should not share with third party.
+
+Next, we provide more details about the `opencracia.config.json` parameters and the environment variables.
+
+### Language support
+We provide i18n support in the framework by default. For this, you should to set a list of languages you want to. `languages`. By default is `["en"]`.
+
+Next, we include more details regarding implementation.
+
+### Proposals
+
+Teams involved in the deployment of a participation instance should prepare CSV file with a set of proposals. Then, each column represents the proposals in a different language.
+
+For example, you want to create a participation instance of 5 propositions in English, Spanish and Portuguese. Then, the parameter `"languages": ["en", "es", "fr"]`
+
+| id | en | es | pt |
+| - | - | - | - |
+| 1 | Create a new constitution | Crear una nueva constitucion | Crear una nueva constitucion |
+### Modules
+
+Currently, `opencracia.config.json` supports four participation modules: 
+
+- `pairwise`  : Pairwise Comparison
+- `approval`  : Approval Voting
+- `ranking`   : Ranking Voting
+- `fallback`  : Fallback Voting
+
+Also, we include a parameter called `ballotSize` in order to divide the number of propositions contained per panel in `approval`, `ranking`, and `fallback` modules. For example, whether `ballotSize = 5` and there are 50 proposals, the platform will split into ten panels of 5 proposals each.
+
+### Database
+
+So far, Opencracia is built to store data on PostgreSQL. To initialize the tables, the file [tables.sql](tables.sql) includes the tables to include in your database.
+
+For running the script, make sure that the env var `DATABASE_URL` is configured and follows the connection string `postgresql://my_user:my_password@localhost:5432/my_db`.
+
+Then, from the project folder, run on the Terminal the following script:
+
+```
+node scripts/db.js createTables
+```
+
+The `db.js` file creates in your database the tables you need to store data. 
+
+
+### Platforms in multiple languages
 
 One can create the platform in many languages (e.g. lang = "en,es,pt"). The files inside the folder "locales/{lang}" are used to create all the elements' labels. 
 
@@ -122,6 +99,23 @@ or you can connect to a Google Sheets file (on the Google Sheets file, click on:
 ```
 python scripts/updateElementTitles.py 
 ```
+
+
+## Running a Hello World
+
+Now that you already config the `opencracia.config.json` file, included your env vars, create the tables in the database, you are ready to start!
+
+First, you need to install de node dependencies:
+
+```
+npm ci
+```
+
+Then, you are ready to deploy on local:
+```
+npm run dev
+```
+
 
 
 ## Platforms inspired by Opencracia
