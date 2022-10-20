@@ -40,19 +40,26 @@ The main difference between those files is that as long as `opencracia.config.js
 Next, we provide more details about the `opencracia.config.json` parameters and the environment variables.
 
 ### Language support
-We provide i18n support in the framework by default. For this, you should to set a list of languages you want to. `languages`. By default is `["en"]`.
+Opencracia supports an internationalization framework (i18n). The language by default is English ("en"). However, you can either modify the default language or include multi-language support by passing an array to the `languages` parameter. 
 
-Next, we include more details regarding implementation.
+For example, if `"languages": ["fr", "en"]`, it means that the platform is in French and English, and the default language is French.
+
+Next, we include more details regarding translations across the website.
 
 ### Proposals
 
-Teams involved in the deployment of a participation instance should prepare CSV file with a set of proposals. Then, each column represents the proposals in a different language.
+Teams involved in the deployment of an instance should prepare a CSV file with a set of proposals to ask users. Each column represents the proposals in a different language. Also, the file must including an `id` column.
 
-For example, you want to create a participation instance of 5 propositions in English, Spanish and Portuguese. Then, the parameter `"languages": ["en", "es", "fr"]`
+For example, you want to deploy a platform in English, Spanish and Portuguese, and asking 3 propositions, the parameter should be `"languages": ["en", "es", "fr"]`, and the CSV file should look like:
 
 | id | en | es | pt |
 | - | - | - | - |
 | 1 | Create a new constitution | Crear una nueva constitucion | Crear una nueva constitucion |
+| 2 | Legalization of cannabis | Legalizacion de la marihuana | Legalizacion de la marihuana |
+| 3 | Create a new constitution | Crear una nueva constitucion | Crear una nueva constitucion |
+
+Additionally, the parameter `proposals` is the url of the CSV file. 
+
 ### Modules
 
 Currently, `opencracia.config.json` supports four participation modules: 
