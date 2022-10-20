@@ -6,6 +6,8 @@ const pool = new Pool({
 
 export default async function handler(req, res) {
 
+  return res.status(200).json({});
+
   const {user_id} = req.body;
 
   pool.query(

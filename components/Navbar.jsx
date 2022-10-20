@@ -7,6 +7,7 @@ import numeral from "numeral";
 import Loading from "./Loading";
 
 import config from "../platform.config";
+import configFile from "../opencracia.config.json";
 
 import {Drawer, Position} from "@blueprintjs/core";
 
@@ -15,41 +16,21 @@ import CustomHelmet from "./CustomHelmet";
 import {FaAlignJustify, FaBars} from "react-icons/fa";
 import {usePlausible} from "next-plausible";
 import {useSelector} from "react-redux";
-import store, {languages} from "../store/store";
 
 export default function Navbar(props) {
 
-  const {callback=undefined, comparison = undefined, hmProps = {}, hmTitle = config.title, logo = "/logos/opencracia.svg", selected = undefined} = props;
+  const {callback = undefined, comparison = undefined, hmProps = {}, hmTitle = config.title, logo = "/logos/opencracia.svg", selected = undefined} = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [count, setCount] = useState(undefined);
 
   const {languages} = useSelector(state => state.languages);
 
   const {lang, t} = useTranslation("translation");
   const plausible = usePlausible();
-  const mounted = useRef();
-
-  const getSummary = async () => {
-    // const data = await fetch("/api/summary")
-    //   .then(resp => resp.json());
-    // setCount(data.count * 1);
-  };
-  useEffect(async () => {
-    if (!mounted.current) {
-      getSummary();
-      mounted.current = true;
-    }
-    else {
-      // do componentDidUpdate logic
-      getSummary();
-    }
-  });
 
   const brand = <div className={styles.brand}>
     <Link href="/">
       <a><span className={styles.label}>
-        {/* {config.title} */}
-        <img className={styles.logo} src={logo} alt="" />
+        {configFile.title || "Opencracia"}
       </span></a>
     </Link>
   </div>;
@@ -64,15 +45,18 @@ export default function Navbar(props) {
     <Link href="/">
       <a className={classNames(styles.item, {[styles.selected]: selected === "participate"})} onClick={() => plausible("menu.participate")}>
         <li className={styles.label}>{t("results.participate")}</li>
-      </a></Link>
+      </a>
+    </Link>
     <Link href="/proposals">
       <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})} onClick={() => plausible("menu.proposals")}>
         <li className={styles.label}>{t("menu.proposals")}</li>
-      </a></Link>
+      </a>
+    </Link>
     <Link href="/results">
       <a className={classNames(styles.item, {[styles.selected]: selected === "results"})} onClick={() => plausible("menu.results")}>
         <li className={styles.label}>{t("menu.results")}</li>
-      </a></Link>
+      </a>
+    </Link>
   </>;
 
   return <React.Fragment>

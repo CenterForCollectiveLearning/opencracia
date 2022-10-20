@@ -13,11 +13,7 @@ module.exports = withTM(nextTranslate({
     includePaths: [path.join(__dirname, "./styles", "./pages", "./components")],
     prependData: "@import './styles/_variables.scss';",
   },
-  env: {
-    LANGUAGES : process.env.LANGUAGES,
-    UNIVERSES: process.env.UNIVERSES
-
-  },
+  env: {},
   async rewrites() {
     return [
       // {

@@ -4,7 +4,6 @@ module.exports = {
     localeDetection: false,
     locales: ["en", "es"]
   },
-  title: "Opencracia",
   keys: {
     identifier: "mptoken",
     universe: "mpuniverse"
