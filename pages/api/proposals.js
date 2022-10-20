@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const {CSV_URL} = process.env;
 
-console.log(CSV_URL);
-
 function isNumeric(value) {
   return /^-?\d+$/.test(value);
 }

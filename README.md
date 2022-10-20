@@ -6,7 +6,19 @@ Opencracia is an open source tool to encourage citizens to release their own ins
 
 Set up Opencracia by cloning the template:
 ```
-git clone 
+git clone https://github.com/CenterForCollectiveLearning/opencracia.git
+```
+
+Then, a set of env vars need to be initialized:
+
+```
+export CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=1308120853&single=true&output=tsv"
+export DATABASE_URL=postgresql://user_br:br@zild@t@2022@localhost:5432/db_escolhe_ai_2022
+export RECAPTCHA_SECRET_KEY=6LfdnhciAAAAAH5DcyJfZtqHtlMJKZkUNck22OBY
+export RECAPTCHA_SECRET_KEY_V3=6LfdnhciAAAAAH5DcyJfZtqHtlMJKZkUNck22OBY
+export LANGUAGES="en,es,fr"
+export UNIVERSES="pairwise,fallback,approval"
+export SECRET_KEY="p@r1$"
 ```
 
 ## Modules
