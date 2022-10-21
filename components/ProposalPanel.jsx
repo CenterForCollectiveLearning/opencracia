@@ -41,8 +41,6 @@ export default function ProposalPanel(props) {
     return obj;
   }, {});
 
-  console.log(Object.entries(orderedData));
-
   return <div className={styles.proposalpanel}>
     <div className={styles.categories}>
       {[t("text.all")].concat(Object.keys(orderedData)).map((d, i) => {

@@ -1,31 +1,31 @@
-$primary: #3E379B;
-$secondary: #F6AA66;
+$primary: #0046bf;
+$secondary: #00d684;
 $tertiary: #F6AA66;
 
 $font-color: #111111;
 $card-background: #3E379B;
-$card-hover: #7A75B6;
-$card-lite-background: #F6AA66;
-$card-lite-color: #FFFFFF;
-$card-font-color: #ffffff;
+$card-hover: #0d208c;
+$card-lite-background: #00d684;
+$card-lite-color: #000000;
+$card-font-color: #FFFFFF;
 
-$circular-progress-path: #F6AA66;
+$circular-progress-path: #00d684;
 
 $background: #ffffff;
-$toggle-background: #F6AA66;
+$toggle-background: #00d684;
 
 $light-2: #dedede;
 
 $white: #ffffff;
 $black: #000000;
-$navbar: #3E379B;
-$navbar-secondary: #3E379B;
-$navbar-font-color: #ffffff;
+$navbar: $primary;
+$navbar-secondary: $secondary;
+$navbar-font-color: $white;
 $navbar-height: 60px;
 $dark-1: #000000;
 
-$menu-hover: #7A75B6;
-$menu-hover-color: #ffffff;
+$menu-hover: #0d208c;
+$menu-hover-color: $white;
 
 $accent-1: #2c42b8;
 $text-font: "Source Sans Pro";

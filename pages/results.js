@@ -150,7 +150,7 @@ export default function Results(props) {
   return <>
     {navBar}
     {title}
-    <div className="is-center">
+    {/* <div className="is-center">
       <button className={styles.share} onClick={() => {
         copyToClipboard(shareText);
         addToast({
@@ -159,7 +159,7 @@ export default function Results(props) {
         }, undefined);
       }}>
         <FaShare /> {t("text.share")}</button>
-    </div>
+    </div> */}
     <Toaster position={Position.BOTTOM} ref={refHandlers}>
       {/* <Toast
         intent={Intent.DANGER}

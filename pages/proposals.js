@@ -3,8 +3,6 @@ import Navbar from "../components/Navbar";
 
 import useTranslation from "next-translate/useTranslation";
 import ProposalPanel from "../components/ProposalPanel";
-import Loading from "../components/Loading";
-import {useSelector} from "react-redux";
 
 export default function Proposals(props) {
   const {data} = props;
@@ -12,16 +10,8 @@ export default function Proposals(props) {
 
   const title = <h1 className="title">{t("menu.proposals")}</h1>;
   const nav =<Navbar
-    // hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
+    hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
     selected="proposals" />;
-
-  // if (loading) {
-  //   return <>
-  //     {nav}
-  //     {title}
-  //     <Loading label={t("messages.loading")} />
-  //   </>;
-  // };
 
   return <>
     {nav}
@@ -35,6 +25,7 @@ export default function Proposals(props) {
             lang={lang}
             data={data}
           />
+
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ Currently, `opencracia.config.json` supports four participation modules:
 
 - `pairwise`  : Pairwise Comparison
 - `approval`  : Approval Voting
-- `ranking`   : Ranking Voting
+- `rank`      : Ranking Voting
 - `fallback`  : Fallback Voting
 
 Also, we include a parameter called `ballotSize` in order to divide the number of propositions contained per panel in `approval`, `ranking`, and `fallback` modules. For example, whether `ballotSize = 5` and there are 50 proposals, the platform will split into ten panels of 5 proposals each.

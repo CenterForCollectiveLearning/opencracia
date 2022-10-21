@@ -224,9 +224,11 @@ export default function Proposal(props) {
   return <>
     <div className={styles.container}>
       {Nav}
-      {title()}
-      {helpButton}
-      {frameModule}
+      <main className={styles.main}>
+        {title()}
+        {helpButton}
+        {frameModule}
+      </main>
     </div>
     {/* {consentForm} */}
   </>;

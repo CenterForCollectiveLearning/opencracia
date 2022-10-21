@@ -1,15 +1,18 @@
 .proposalpanel {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+
   .subpanel {
     display: flex;
     flex-direction: column;
     flex: 1;
     width: 100%;
+
     .title {
       cursor: pointer;
     }
+
     .proposals {
       display: flex;
       flex-direction: column;
@@ -18,10 +21,11 @@
 }
 
 .categories {
+
   // display: flex;
   // flex-wrap: wrap;
   .category {
-    background-color: rgba($menu-hover, 0.5);
+    background-color: rgba($secondary, 0.5);
     border-radius: 10rem;
     // flex: 1;
     // min-width: 300px;
@@ -32,6 +36,7 @@
     margin-bottom: 0.25rem;
     margin-right: 0.25rem;
     padding: 0.3rem 0.9rem;
+
     &.selected {
       background-color: $primary;
       color: $white;
