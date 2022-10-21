@@ -22,6 +22,7 @@ import Approval from "../modules/Approval";
 
 import store, {properties, users} from "../store/store";
 import Fallback from "../modules/Fallback";
+import Footer from "../components/Footer";
 
 export default function Proposal(props) {
   const [state, setState] = useState({
@@ -231,6 +232,7 @@ export default function Proposal(props) {
       </main>
     </div>
     {/* {consentForm} */}
+    <Footer />
   </>;
 
 }

@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 
 import useTranslation from "next-translate/useTranslation";
 import ProposalPanel from "../components/ProposalPanel";
+import Footer from "../components/Footer";
 
 export default function Proposals(props) {
   const {data} = props;
@@ -17,18 +18,16 @@ export default function Proposals(props) {
     {nav}
     {title}
     <div className="container">
-
       <div className="columns">
         <div className="column">
-
           <ProposalPanel
             lang={lang}
             data={data}
           />
-
         </div>
       </div>
     </div>
+    <Footer />
   </>;
 }
 

@@ -1,7 +1,7 @@
 {
   "title": "Opencracia",
   "languages": ["en", "es"],
-  "module": "rank",
+  "module": "fallback",
   "proposals": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=1308120853&single=true&output=tsv",
   "ballotSize": 5
 }

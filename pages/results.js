@@ -12,6 +12,7 @@ import {shareText} from "../helpers/utils";
 import styles from "../styles/Results.module.scss";
 import {FaShare} from "react-icons/fa";
 import {useSelector} from "react-redux";
+import Footer from "../components/Footer";
 
 const THRESHOLD_COUNT = 10;
 
@@ -190,8 +191,8 @@ export default function Results(props) {
           backgroundColor="#EAEAEA"
         />
       </div>
-      
     </div>
+    <Footer />
 
   </>;
 }
