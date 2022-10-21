@@ -1,6 +1,8 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {createSlice} from "@reduxjs/toolkit";
 
+import configFile from "../opencracia.config.json";
+
 // create a slice 
 export const users = createSlice({
   name: "users",
@@ -18,7 +20,7 @@ export const users = createSlice({
 export const languages = createSlice({
   name: "languages",
   initialState: {
-    languages: ["en","es"]
+    languages: configFile["languages"] || ["en"]
   },
   reducers:{
     updateLanguages(state, action) {
@@ -42,11 +44,11 @@ export const screens = createSlice({
 export const properties = createSlice({
   name: "properties",
   initialState: {
-    ballotSize: 2,
+    ballotSize: configFile["ballotSize"] || 2,
     data: [],
     dataChunks: [],
     subBallotPos: 0,
-    module: undefined
+    module: configFile["module"] || "pairwise"
   },
   reducers: {
     updateBallotSize(state, action) {

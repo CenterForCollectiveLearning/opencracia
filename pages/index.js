@@ -22,6 +22,7 @@ import Approval from "../modules/Approval";
 
 import store, {properties, users} from "../store/store";
 import Fallback from "../modules/Fallback";
+import Footer from "../components/Footer";
 
 export default function Proposal(props) {
   const [state, setState] = useState({
@@ -44,10 +45,6 @@ export default function Proposal(props) {
     baseCount,
     consentFormType,
     count,
-    dataLevel,
-    dataFiltered,
-    dataRanked,
-    dataSelected,
     dataSelectedAll,
     dragdrop,
     isOpenConsentForm,
@@ -228,11 +225,14 @@ export default function Proposal(props) {
   return <>
     <div className={styles.container}>
       {Nav}
-      {title()}
-      {helpButton}
-      {frameModule}
+      <main className={styles.main}>
+        {title()}
+        {helpButton}
+        {frameModule}
+      </main>
     </div>
     {/* {consentForm} */}
+    <Footer />
   </>;
 
 }

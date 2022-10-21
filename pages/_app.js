@@ -34,16 +34,16 @@ function MyApp({Component, pageProps}) {
     if (!token) 
       localStorage.setItem("mptoken", uuidv4());
       
-    const module = shuffle(process.env.UNIVERSES.split(","))[0];
-    store.dispatch(properties.actions.updateModule(module));
+    // const module = shuffle(process.env.UNIVERSES.split(","))[0];
+    // store.dispatch(properties.actions.updateModule(module));
 
-    const universe = localStorage.getItem("mpuniverse");
-    if (!universe) {
-      const universes = [4, 5, 6];
-      localStorage.setItem("mpuniverse", shuffle(universes)[0]);
-    }
+    // const universe = localStorage.getItem("mpuniverse");
+    // if (!universe) {
+    //   const universes = [4, 5, 6];
+    //   localStorage.setItem("mpuniverse", shuffle(universes)[0]);
+    // }
 
-    store.dispatch(properties.actions.updateBallotSize(5)); //  || universe * 1
+    // store.dispatch(properties.actions.updateBallotSize(5)); //  || universe * 1
     store.dispatch(users.actions.updateToken(token));
 
   }, []);

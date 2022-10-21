@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const {CSV_URL} = process.env;
-
-console.log(CSV_URL);
+const configFile = require("../../opencracia.config.json");
+const CSV_URL = configFile["proposals"];
 
 function isNumeric(value) {
   return /^-?\d+$/.test(value);
@@ -21,9 +20,9 @@ function csvJSON(csv, delimiter = "\t") {
     for (let j = 0; j < headers.length; j++)  
       obj[headers[j]] = isNumeric(currentline[j]) ? currentline[j] * 1 : currentline[j];
 
-    if (obj['id'] !== ""){
+    if (obj["id"] !== "")
       result.push(obj);
-    }
+    
   }
   return result;
 }
@@ -38,9 +37,9 @@ export default async function handler(req, res) {
   const __multichoice = headers.filter(d => d.includes("_multichoice"));
 
   jsonData.forEach(d => {
-    for (const s of __multichoice) {
+    for (const s of __multichoice) 
       d[s] = d[s] === "" ? null : d[s].split(", ");
-    }
+    
   });
 
   res.status(200).json(jsonData);

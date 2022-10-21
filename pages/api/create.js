@@ -2,18 +2,12 @@
 
 const axios = require("axios");
 const hmacSHA512 = require("crypto-js/hmac-sha512");
-const {DB_USER, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT} = process.env;
 
+const {DATABASE_URL, SECRET_KEY} = process.env;
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_NAME,
-  password: DB_PASSWORD,
-  port: DB_PORT
+  connectionString: DATABASE_URL
 });
-
-const SECRET_KEY = "p@r1$";
 
 export default async function handler(req, res) {
   const {option_a, option_b, selected, uuid, token} = req.body;

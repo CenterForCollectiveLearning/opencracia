@@ -21,11 +21,13 @@ p {
 .columns {
   display: flex;
   flex-wrap: wrap;
+
   .column {
     flex: 1;
     min-width: 300px;
     padding: 10px;
   }
+
   .column2 {
     flex: 1;
     min-width: 600px;
@@ -41,7 +43,7 @@ p {
 
 a {
   color: $primary;
-  text-decoration: none !important;
+  text-decoration: underline;
 }
 
 h1,
@@ -63,9 +65,8 @@ h6 {
 
 .title {
   color: $black;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding: 30px;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
@@ -73,6 +74,7 @@ h6 {
   .CircularProgressbar-path {
     stroke: $circular-progress-path;
   }
+
   .CircularProgressbar-text {
     fill: $circular-progress-path;
     font-style: normal;
@@ -84,17 +86,21 @@ h6 {
   background-color: $white;
   border-radius: 0px;
   font-size: 1.1rem;
+
   .bp3-dialog-header {
     background-color: $navbar;
     border-radius: 0px;
     padding: 0.5rem 2.5rem;
+
     .bp3-icon {
       color: $navbar-font-color;
+
       svg {
         height: 30px;
         width: 30px;
       }
     }
+
     .bp3-heading {
       color: $navbar-font-color;
       white-space: normal;
@@ -111,7 +117,9 @@ h6 {
   overflow-y: scroll;
 }
 
-.bp3-menu-item.bp3-intent-primary:hover, .bp3-submenu .bp3-popover-target.bp3-popover-open > .bp3-intent-primary.bp3-menu-item, .bp3-menu-item.bp3-intent-primary.bp3-active {
+.bp3-menu-item.bp3-intent-primary:hover,
+.bp3-submenu .bp3-popover-target.bp3-popover-open>.bp3-intent-primary.bp3-menu-item,
+.bp3-menu-item.bp3-intent-primary.bp3-active {
   background-color: $primary;
 }
 
@@ -120,6 +128,6 @@ h6 {
   background-color: $flag-red;
 }
 
-.bp3-control input:checked ~ .bp3-control-indicator {
+.bp3-control input:checked~.bp3-control-indicator {
   background-color: $primary;
 }

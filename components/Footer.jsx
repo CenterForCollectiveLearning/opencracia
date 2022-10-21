@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import styles from "./Footer.module.scss";
 
@@ -13,6 +13,8 @@ function MiniLogo(props) {
 
 export default function Footer(props) {
   return <footer className={styles.footer}>
-
+    The Opencracia framework was created by the 
+    {" "}<a href="https://centerforcollectivelearning.org">Center for Collective Learning</a> and <a href="https://irit.fr">IRIT</a> under GPL-3 License.
+    For technical support, visit the official <a href="https://github.com/CenterForCollectiveLearning/opencracia">GitHub</a> of the project.
   </footer>;
 }

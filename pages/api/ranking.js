@@ -2,23 +2,17 @@
 
 const {combinations} = require("../../helpers/utils");
 
-const axios = require("axios");
-const {DB_USER, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT} = process.env;
-
+const {DATABASE_URL} = process.env;
 const Pool = require("pg").Pool;
 const pool = new Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_NAME,
-  password: DB_PASSWORD,
-  port: DB_PORT
+  connectionString: DATABASE_URL
 });
 
 export default async function handler(req, res) {
   const {user_id} = req.body;
   
-  const query1 = await pool.query("SELECT * FROM agree WHERE user_id = $1;", [user_id]).then(resp => resp.rows);
-  const query2 = await pool.query("SELECT * FROM rank WHERE user_id = $1 AND rank LIKE '%>%';", [user_id]).then(resp => resp.rows);
+  const query1 = await pool.query("SELECT * FROM agree;", []).then(resp => resp.rows);
+  const query2 = await pool.query("SELECT * FROM rank WHERE rank LIKE '%>%';", []).then(resp => resp.rows);
 
   const _agree = query1.filter(d => d.agree === 1);
   const _disagree = query1.filter(d => d.agree === 0);

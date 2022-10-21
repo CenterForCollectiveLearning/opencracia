@@ -80,7 +80,6 @@
     text-transform: uppercase;
 
     a {
-      // border-radius: 999px;
       align-items: center;
       color: $navbar-font-color;
       display: flex;
@@ -89,6 +88,7 @@
       justify-content: center;
       padding: 0px 20px;
       text-align: center;
+      text-decoration: none;
 
       &:hover {
         background-color: $menu-hover;
@@ -98,7 +98,6 @@
 
       &.selected {
         background-color: $menu-hover;
-        color: $font-color;
 
         // border-bottom: 5px solid $primary;
         &:hover {
