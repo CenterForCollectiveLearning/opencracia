@@ -4,40 +4,24 @@ import Navbar from "../components/Navbar";
 import useTranslation from "next-translate/useTranslation";
 import ProposalPanel from "../components/ProposalPanel";
 import Loading from "../components/Loading";
+import {useSelector} from "react-redux";
 
-export default function Proposals() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const {lang, t} = useTranslation("translation");
-  
-  useEffect(async() => {
-    const tmp = await fetch("/api/proposals").then(resp => resp.json());
-
-    const tmpObj = tmp.reduce((obj, d) => {
-      const label = d[`${lang}_category`];
-      if (label !== ""){
-        if (!obj[label]) obj[label] = [];
-        obj[label].push(d);
-      }
-      return obj;
-    }, {});
-
-    setData(tmpObj);
-    setLoading(false);
-  }, []);
+export default function Proposals(props) {
+  const {data} = props;
+  const {t, lang} = useTranslation("translation");
 
   const title = <h1 className="title">{t("menu.proposals")}</h1>;
   const nav =<Navbar
-    hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
+    // hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
     selected="proposals" />;
 
-  if (loading) {
-    return <>
-      {nav}
-      {title}
-      <Loading label={t("messages.loading")} />
-    </>;
-  };
+  // if (loading) {
+  //   return <>
+  //     {nav}
+  //     {title}
+  //     <Loading label={t("messages.loading")} />
+  //   </>;
+  // };
 
   return <>
     {nav}
@@ -55,4 +39,18 @@ export default function Proposals() {
       </div>
     </div>
   </>;
+}
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+
+  const resp = await fetch("http://localhost:3000/api/proposals");
+  const data = await resp.json();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {data}
+  };
 }

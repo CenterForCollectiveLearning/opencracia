@@ -4,22 +4,16 @@ import Navbar from "../components/Navbar";
 import ResultBar from "../components/ResultBar";
 import CustomButton from "../components/CustomButton";
 import ToggleButton from "../components/ToggleButton";
-import ShowDemoMap from "../components/ShowDemoMap";
-import ShowGenderPlot from "../components/ShowGenderPlot";
-import ShowPartiesPlot from "../components/ShowPartiesPlot";
-import ShowEducationPlot from "../components/ShowEducationPlot";
-import ShowAgePlot from "../components/ShowAgePlot";
-import {Toaster, Position, Button, Toast, Intent} from "@blueprintjs/core";
+import {Toaster, Position, Intent} from "@blueprintjs/core";
 import useTranslation from "next-translate/useTranslation";
 import {interpolatePlasma} from "d3-scale-chromatic";
 import {shareText} from "../helpers/utils";
-import {usePlausible} from "next-plausible";
 
 import styles from "../styles/Results.module.scss";
 import {FaShare} from "react-icons/fa";
+import {useSelector} from "react-redux";
 
-var numberPeople;
-var numberPreferences;
+const THRESHOLD_COUNT = 10;
 
 export function copyToClipboard(text) {
   let dummy = document.createElement("textarea");
@@ -50,21 +44,14 @@ export function Rank(props) {
   let tmpValue = 1;
   let tmpRank = 1;
 
-  // XXX: number of people
-  // YYY: number of preferences .replace("YYY", numberPreferences)
-  
-  const subtitle = t(title+"-2").replace("XXX", numberPeople);
-
   return <div className="column">
     <h2 className="is-center">{t(title)}</h2>
-    <h3 className="is-center">{subtitle}</h3>
     {filteredData.map((d, i, {length}) => {
       const _value = d[value];
       if (i === 0) tmpValue = _value;
 
       if (tmpValue !== _value) 
         tmpRank += 1;
-      
 
       tmpValue = _value;
       return <ResultBar
@@ -76,7 +63,6 @@ export function Rank(props) {
         opacity={i < 10 ? scale(1 - (tmpRank - 1) / 10, 0, 1, 1, 0.2) : 0.2}
         count={d.wins ? d.wins + d.tie + d.lost : d.count}
         name={d.name}
-        universe={localStorage.getItem("mpuniverse") * 1}
         value={_value}
       />;
     })}
@@ -85,17 +71,21 @@ export function Rank(props) {
   </div>;
 }
 
-export default function Results() {
-  const [state, setState] = useState({
-    agreements: [], count: 0, data: [], disagreements: [], loading: true, proposals: [], overall: [], mapDemographics:[], genderDemographics:[], partiesDemographics:[], educationDemographics:[], ageDemographics:[]
-  });
-  const {agreements, count, data, disagreements, loading, proposals, overall} = state;
+export default function Results(props) {
+  const {data} = props;
+  const {token} = useSelector(state => state.users);
 
-  const THRESHOLD_COUNT = 10;
+  const [state, setState] = useState({
+    count: 0, 
+    loading: true,
+    individualRank: [],
+    collectiveRank: []
+  });
+  const {collectiveRank, individualRank, count, loading} = state;
+
   const {lang, t} = useTranslation("translation");
 
   const refHandlers = useRef();
-  const plausible = usePlausible();
 
   const addToast = (toast, callback) => {
     
@@ -111,39 +101,20 @@ export default function Results() {
     // .current.create(toastOutput);
   };
 
-  
-  
-  
-  function catchErrorFunction (response){
-    const {status} = response;
-    if (status === 200) 
-      return response.json();
-    else {
-      addToast({
-        message: t("popup.message-error"),
-        intent: Intent.DANGER
-      }, undefined); 
-    }
-  }
+
 
   useEffect(async () => {
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        user_id: localStorage.getItem("mptoken")
+        user_id: token
       })
     };
-    const proposals = await fetch("/api/proposals").then(resp => resp.json());
-    let {data, count} = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
-    const overall = await fetch("/results.json").then(resp => resp.json());
+    console.log(token);
 
-    let _ = overall.data;
-    _.forEach(d => {
-      const item = proposals.find(h => d.id * 1 === h.id * 1) || {};
-      d.name = item.name || item[lang] || undefined;
-    });
-    _ = _.filter(d => d.name !== undefined);
+    const response = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
+    let _ = response.data;
 
     const agreements = _.slice().filter(d => d.agreement !== null);
     agreements.sort((a, b) => b.agreement - a.agreement);
@@ -151,24 +122,15 @@ export default function Results() {
       d.backgroundColor = interpolatePlasma(i / agreements.length);
     });
 
-    data.forEach(d => {
-      const item = proposals.find(h => d.id * 1 === h.id * 1) || {};
-      const tmp = agreements.find(h => d.id * 1 === h.id * 1) || {};
+    _.forEach(d => {
+      const item = data.find(h => d.id.toString() === h.id.toString()) || {};
+      const tmp = agreements.find(h => d.id.toString() === h.id.toString()) || {};
       d.backgroundColor = tmp.backgroundColor || "red";
       d.name = item.name || item[lang] || undefined;
     });
-    data = data.filter(d => d.name !== undefined);
+    // _ = _.filter(d => d.name !== undefined);
     
-    // const getPreferences = await fetch("/api/getPreferences").then(resp => resp.json());
-    const getUsers = await fetch("/api/getUsers").then(resp => resp.json());
-
-    // numberPreferences = 0; 
-    // getPreferences.forEach(d => {
-    //   numberPreferences = parseInt(numberPreferences) + (parseInt(d.count) * (parseInt(d.universe) * (parseInt(d.universe) - 1) / 2));
-    // });
-    numberPeople = getUsers[0].count;
-    
-    setState({...state, agreements, count, data, loading: false, proposals, overall: overall.data,});
+    setState({...state, individualRank: _, count, loading: false, collectiveRank: _});
   }, []);
 
   const title = <h1 className="title">{t("results.title")}</h1>;
@@ -195,7 +157,6 @@ export default function Results() {
           message: t("text.copied"),
           intent: Intent.SUCCESS
         }, undefined);
-        plausible("results.button-share");
       }}>
         <FaShare /> {t("text.share")}</button>
     </div>
@@ -209,7 +170,7 @@ export default function Results() {
       <div className="columns">
         {count >= THRESHOLD_COUNT
           ? <Rank
-            data={data}
+            data={individualRank}
             footnote={undefined}
             title={"results.my-ranking-title"}
             value="value"
@@ -222,7 +183,7 @@ export default function Results() {
           </div>}
 
         <Rank
-          data={agreements}
+          data={collectiveRank}
           footnote={t("results.agreements-text")}
           title={"results.agreements-title"}
           value="agreement"
@@ -233,4 +194,18 @@ export default function Results() {
     </div>
 
   </>;
+}
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+
+  const resp = await fetch("http://localhost:3000/api/proposals");
+  const data = await resp.json();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {data}
+  };
 }
