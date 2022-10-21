@@ -19,11 +19,17 @@
 
 .progressbar {
   margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .title {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    padding: 0.25rem;
 
     .button {
       background-color: $flag-red;

@@ -6,9 +6,9 @@ import styles from "./Loading.module.scss";
 import classNames from "classnames";
 
 export default function Loading(props) {
-  const {label} = props;
+  const {isFull, label} = props;
 
-  return <div className={styles.loading}>
+  return <div className={classNames(styles.loading, {[styles.fullScreen]: isFull})}>
     <FontAwesomeIcon className={styles.icon} icon={faCircleNotch} spin={true} />
     <span className={classNames(styles.label, styles.text)}>{label}</span>
   </div>;

@@ -88,16 +88,15 @@ export default function Approval(props) {
             dataFiltered = shuffle(dataFiltered);
           }
 
-          const openPanel = dataFiltered.filter(d => d.selected === 1).length > 1 && n > 0;
+          // const openPanel = dataFiltered.filter(d => d.selected === 1).length > 1 && n > 0;
           const newState = {
             ...state,
             dataFiltered,
+            selected: []
             // dataRanked: dataFiltered,
             // dragdrop: openPanel,
             // updated: 0
           };
-          if (!openPanel) 
-            newState.selected = [];
           
           setData(selected, "agree", newState);
         } : undefined}>
