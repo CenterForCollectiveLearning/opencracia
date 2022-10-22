@@ -16,7 +16,7 @@ function csvJSON(csv, delimiter = "\t") {
       continue;
     const obj = {};
     const currentline = lines[i].split(delimiter);
-
+    
     for (let j = 0; j < headers.length; j++)  
       obj[headers[j]] = isNumeric(currentline[j]) ? currentline[j] * 1 : currentline[j];
 
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       d[s] = d[s] === "" ? null : d[s].split(", ");
     
   });
-
+  
   res.status(200).json(jsonData);
 }
   
