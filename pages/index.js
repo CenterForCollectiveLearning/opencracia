@@ -1,32 +1,26 @@
 import React, {useEffect, useState} from "react";
-import classNames from "classnames";
-import useTranslation from "next-translate/useTranslation";
-import {useSelector} from "react-redux";
-
-import Navbar from "../components/Navbar";
-
-import {MdLiveHelp} from "react-icons/md";
-
-import styles from "../styles/Home.module.scss";
-import Loading from "../components/Loading";
-import {chunks, combinations, random, shuffle} from "../helpers/utils";
-import ConsentForm from "../components/ConsentForm";
-import PopupResults from "../components/PopupResults";
-import {ProgressBar} from "@blueprintjs/core";
-import numeral from "numeral";
-import Link from "next/link";
-
-import Pairwise from "../modules/Pairwise";
-import Rank from "../modules/Rank";
 import Approval from "../modules/Approval";
-
-import store, {properties, users} from "../store/store";
+import ConsentForm from "../components/ConsentForm";
 import Fallback from "../modules/Fallback";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import Navbar from "../components/Navbar";
+import Pairwise from "../modules/Pairwise";
+import Rank from "../modules/Rank";
+import classNames from "classnames";
+import numeral from "numeral";
+import store, {properties} from "../store/store";
+import useTranslation from "next-translate/useTranslation";
+import {MdLiveHelp} from "react-icons/md";
+import {ProgressBar} from "@blueprintjs/core";
+import {chunks, combinations, random, shuffle} from "../helpers/utils";
+import {useSelector} from "react-redux";
+
+import styles from "../styles/Home.module.scss";
+
 
 export default function Proposal(props) {
   const [state, setState] = useState({
-    baseCount: 0,
     consentFormType: 0,
     count: 0,
     dataFiltered: [],
