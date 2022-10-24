@@ -11,7 +11,7 @@ import styles from "./ProposalPanel.module.scss";
 function Subpanel(props) {
   const {data, lang, open, title} = props;
   const [isOpen, setIsOpen] = useState(true);
-  console.log(data);
+  
   return <div className={styles.subpanel}>
     <h2 className={styles.title}
       // onClick={() => setIsOpen(!isOpen)}
@@ -35,8 +35,8 @@ export default function ProposalPanel(props) {
   const [filtered, setFiltered] = useState([t("text.all")]);
 
   const orderedData = data.reduce((obj, d) => { 
-    if (!obj[d["pt_category"]]) obj[d["pt_category"]] = [];
-    obj[d["pt_category"]].push(d);
+    if (!obj[d[lang+"_category"]]) obj[d[lang+"_category"]] = [];
+    obj[d[lang+"_category"]].push(d);
 
     return obj;
   }, {});
