@@ -3,5 +3,9 @@
   "languages": ["en", "es"],
   "module": "pairwise",
   "proposals": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=1308120853&single=true&output=tsv",
+  "translations": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=414052729&single=true&output=tsv",
+  "pathToTranslations" : "/Users/mgmmacedo/Documents/postdoc/opencracia/locales/",
   "ballotSize": 5
+
+  
 }

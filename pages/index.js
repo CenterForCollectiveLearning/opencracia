@@ -28,7 +28,7 @@ export default function Proposal(props) {
     dataSelectedAll: [],
     dragdrop: false,
     isOpen: false,
-    isOpenConsentForm: true,
+    isOpenConsentForm: false,
     isOpenPopupResults: false,
     loading: true,
     pos: 0,
@@ -54,9 +54,12 @@ export default function Proposal(props) {
     subBallotPos
   } = useSelector(state => state.properties);
 
-  const {token} = useSelector(state => state.users);
+  // it was not working
+  // const {token} = useSelector(state => state.users);
 
   useEffect(async() => {
+
+    const token = localStorage.getItem("mptoken");
 
     const data = props.data;
     store.dispatch(properties.actions.updateData(data));
@@ -88,7 +91,10 @@ export default function Proposal(props) {
 
     const participation = await fetch("/api/getParticipation", requestOptions)
       .then(resp => resp.json());
-    console.log(participation);
+
+    const consent = await fetch("/api/getConsent", requestOptions)
+      .then(resp => resp.json());
+    const openConsent = consent.length === 0 ? true : false;
 
     const dataSelectedAll = [];
     for (const s of participation[0]) 
@@ -111,7 +117,7 @@ export default function Proposal(props) {
       ...state,
       dataSelectedAll,
       dataFiltered: shuffle(dataSelectedAll).slice(0, ballotSize),
-      isOpenConsentForm: false, // validate.length === 0,
+      isOpenConsentForm: openConsent, // validate.length === 0,
       loading: false
     });
   }, []);
@@ -121,7 +127,7 @@ export default function Proposal(props) {
     onClick={() => {
       setState({
         ...state,
-        isOpenConsentForm: true,
+        isOpenConsentForm: false,
         consentFormType: 1,
       });
     }}>
@@ -153,6 +159,7 @@ export default function Proposal(props) {
   const consentForm = <ConsentForm
     type={consentFormType}
     isOpen={isOpenConsentForm}
+    universe={module}
     callback={isOpenConsentForm => {
       setState({...state, isOpenConsentForm});
     }}
@@ -204,7 +211,7 @@ export default function Proposal(props) {
         {progressBar}
       </main>
     </div>
-    {/* {consentForm} */}
+    {consentForm}
     <Footer />
   </>;
 

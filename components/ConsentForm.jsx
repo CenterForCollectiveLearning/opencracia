@@ -7,8 +7,9 @@ import styles from "./ConsentForm.module.scss";
 import useTranslation from "next-translate/useTranslation";
 
 export default function ConsentForm(props) {
+
   const {lang, t} = useTranslation("translation");
-  const {callback, gettingStarted = t("popup.lead"), isOpen, type} = props;
+  const {callback, gettingStarted = t("popup.lead"), isOpen, type, universe} = props;
   const [count, setCount] = useState(0);
 
   let panel = gettingStarted;
@@ -55,8 +56,7 @@ export default function ConsentForm(props) {
               const data = {
                 user_id: localStorage.getItem("mptoken"),
                 locale: lang,
-                universe: localStorage.getItem("mpuniverse") * 1,
-                url: window.location.href
+                universe: universe
               };
               const requestOptions = {
                 method: "POST",

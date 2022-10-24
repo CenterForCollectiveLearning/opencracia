@@ -44,6 +44,7 @@ function MyApp({Component, pageProps}) {
     // }
 
     // store.dispatch(properties.actions.updateBallotSize(5)); //  || universe * 1
+    
     store.dispatch(users.actions.updateToken(token));
 
   }, []);

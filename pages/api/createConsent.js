@@ -11,7 +11,8 @@ const pool = new Pool({
 const {SECRET_KEY} = process.env;
 
 export default async function handler(req, res) {
-  const {user_id, universe, locale, url} = req.body;
+
+  const {user_id, universe, locale} = req.body;
   
   const publicIpV4 = req.headers["x-forwarded-for"] ||
      req.socket.remoteAddress ||
@@ -19,10 +20,10 @@ export default async function handler(req, res) {
   // const ipData = await axios.get(`http://ip-api.com/json/${publicIpV4}`).then(resp => resp.data);
 
   const hashIp = hmacSHA512(publicIpV4, SECRET_KEY).toString();
-  
+
   pool.query(
-    "INSERT INTO consent (user_id, ip_hash, universe, locale, url) VALUES ($1, $2, $3, $4, $5)", 
-    [user_id, hashIp, universe, locale, url], 
+    "INSERT INTO consent (user_id, ip_hash, universe, locale) VALUES ($1, $2, $3, $4)", 
+    [user_id, hashIp, universe, locale], 
     (error, result) => {
       if (error) {
         console.log(error);

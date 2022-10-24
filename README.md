@@ -42,7 +42,7 @@ Next, we provide more details about the `opencracia.config.json` parameters and 
 ### Language support
 Opencracia supports an internationalization framework (i18n). The language by default is English ("en"). However, you can either modify the default language or include multi-language support by passing an array to the `languages` parameter. 
 
-For example, if `"languages": ["fr", "en"]`, it means that the platform is in French and English, and the default language is French.
+For example, if `"languages": ["es", "en"]`, it means that the platform is in Spanish and English, and the default language is Spanish.
 
 Next, we include more details regarding translations across the website.
 
@@ -50,13 +50,12 @@ Next, we include more details regarding translations across the website.
 
 Teams involved in the deployment of an instance should prepare a CSV file with a set of proposals to ask users. Each column represents the proposals in a different language. Also, the file must including an `id` column.
 
-For example, you want to deploy a platform in English, Spanish and Portuguese, and asking 3 propositions, the parameter should be `"languages": ["en", "es", "fr"]`, and the CSV file should look like:
+For example, you want to deploy a platform in English, Spanish and Portuguese, and asking 3 propositions, the parameter should be `"languages": ["en", "es", "pt"]`, and the CSV file should look like:
 
 | id | en | es | pt |
 | - | - | - | - |
-| 1 | Create a new constitution | Crear una nueva constitucion | Crear una nueva constitucion |
-| 2 | Legalization of cannabis | Legalizacion de la marihuana | Legalizacion de la marihuana |
-| 3 | Create a new constitution | Crear una nueva constitucion | Crear una nueva constitucion |
+| 1 | Create a new constitution | Crear una nueva constitucion | Criar uma nova constituição |
+| 2 | Legalization of cannabis | Legalizacion de la marihuana | Legalizar a maconha |
 
 Additionally, the parameter `proposals` is the url of the CSV file. 
 

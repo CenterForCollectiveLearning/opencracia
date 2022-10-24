@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS consent(
     id SERIAL PRIMARY KEY,
     user_id UUID NOT NULL,
     ip_hash VARCHAR NOT NULL,
-    universe INT NOT NULL,
+    universe VARCHAR NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     locale VARCHAR NOT NULL
 );

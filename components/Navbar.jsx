@@ -36,7 +36,7 @@ export default function Navbar(props) {
   </div>;
 
   const redirectUrl = (translate) => {
-    if (translate !== "fr")
+    if (translate !== "en")
       return selected ? "/"+translate+`/${selected}` : "/"+translate+"/";
     return selected ? `/${selected}` : "/";
   };
