@@ -23,7 +23,9 @@ After you clone the template, you need to config two files before to start. The 
   "languages": ["en", "es"],
   "module": "approval",
   "proposals": "CSV_FILE_URL",
-  "ballotSize": 5
+  "ballotSize": 5,
+  "translations": "TSV_FILE_URL",
+  "pathToTranslations" : "PATH_DIRECTORY_TRANSLATIONS",
 }
 ```
 
@@ -45,7 +47,7 @@ Opencracia supports an internationalization framework (i18n). The language by de
 
 For example, if `"languages": ["es", "en"]`, it means that the platform is in Spanish and English, and the default language is Spanish.
 
-Once you set the languages, the files inside the folder "locales/{lang}" (lang = "es" | "en") are used to create all the elements' labels. In order to create these files, you can create a .tsv file that will be read to populate the elements' labels on the following format:
+Once you set the languages, the files inside the folder `"locales/{lang}"` (lang = "es" | "en") are used to create all the elements' labels. You can change the path of this folder using the variable `"translations"` on `opencracia.config.json`. In order to create these files, you can create a .tsv file that will be read to populate the elements' labels on the following format:
 
 |       key        |        en        |        es        |        pt        |
 |   ------------   |   ------------   |   ------------   |   ------------   |
@@ -58,7 +60,7 @@ or you can connect to a Google Sheets file (on the Google Sheets file, click on:
 
 The file inside the folder `"public/data/opencracia_elements.tsv"` has the template that you have to follow. If you change, any key name in this file, you will have to change the name of element in the code. Therefore, take care while changing the key names.
 
-Finally, you have to set the path on the variable `pathToTranslations` for the .tsv file on the `opencracia.config.json`. 
+Finally, you have to set the path on the variable `TSV_FILE_URL` for the .tsv file on the `opencracia.config.json`. 
 
 
 ### Proposals
