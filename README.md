@@ -40,11 +40,26 @@ The main difference between those files is that as long as `opencracia.config.js
 Next, we provide more details about the `opencracia.config.json` parameters and the environment variables.
 
 ### Language support
+
 Opencracia supports an internationalization framework (i18n). The language by default is English ("en"). However, you can either modify the default language or include multi-language support by passing an array to the `languages` parameter. 
 
 For example, if `"languages": ["es", "en"]`, it means that the platform is in Spanish and English, and the default language is Spanish.
 
-Next, we include more details regarding translations across the website.
+Once you set the languages, the files inside the folder "locales/{lang}" (lang = "es" | "en") are used to create all the elements' labels. In order to create these files, you can create a .tsv file that will be read to populate the elements' labels on the following format:
+
+|       key        |        en        |        es        |        pt        |
+|   ------------   |   ------------   |   ------------   |   ------------   |
+|   website.name   |    Opencracia    |    Opencracia    |    Opencracia    |
+|   menu.results   |    Results       |    Resultados    |    Resultados    |
+
+
+Either you add or edit the file inside the folder "public/data/opencracia_elements.tsv"
+or you can connect to a Google Sheets file (on the Google Sheets file, click on: File -> Share -> Publish to web -> Publish as .tsv -> use this link). 
+
+The file inside the folder "public/data/opencracia_elements.tsv" has the template that you have to follow. If you change, any key name in this file, you will have to change the name of element in the code. Therefore, take care while changing the key names.
+
+Finally, you have to set the path on the variable `pathToTranslations` for the .tsv file on the `opencracia.config.json`. 
+
 
 ### Proposals
 
@@ -84,27 +99,6 @@ node scripts/db.js createTables
 
 The `db.js` file creates in your database the tables you need to store data. 
 
-
-### Platforms in multiple languages
-
-One can create the platform in many languages (e.g. lang = "en,es,pt"). The files inside the folder "locales/{lang}" are used to create all the elements' labels. 
-
-In order to create these files, you can create a .tsv on the following format:
-
-|       key        |        en        |        es        |        pt        |
-|   ------------   |   ------------   |   ------------   |   ------------   |
-|   website.name   |    Opencracia    |    Opencracia    |    Opencracia    |
-|   menu.results   |    Results       |    Resultados    |    Resultados    |
-
-
-Then, run the following python file:
-Don't forget to change the path for the .tsv file. 
-Either you add the file inside the folder "public/data/opencracia_elements.tsv"
-or you can connect to a Google Sheets file (on the Google Sheets file, click on: File -> Share -> Publish to web -> Publish as .tsv -> use this link).  
-
-```
-python scripts/updateElementTitles.py 
-```
 
 
 ## Running a Hello World
