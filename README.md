@@ -53,10 +53,10 @@ Once you set the languages, the files inside the folder "locales/{lang}" (lang =
 |   menu.results   |    Results       |    Resultados    |    Resultados    |
 
 
-Either you add or edit the file inside the folder "public/data/opencracia_elements.tsv"
-or you can connect to a Google Sheets file (on the Google Sheets file, click on: File -> Share -> Publish to web -> Publish as .tsv -> use this link). 
+Either you add or edit the file inside the folder `"public/data/opencracia_elements.tsv"`
+or you can connect to a Google Sheets file (on the Google Sheets file, click on: `File -> Share -> Publish to web -> Publish as .tsv -> use this link`). 
 
-The file inside the folder "public/data/opencracia_elements.tsv" has the template that you have to follow. If you change, any key name in this file, you will have to change the name of element in the code. Therefore, take care while changing the key names.
+The file inside the folder `"public/data/opencracia_elements.tsv"` has the template that you have to follow. If you change, any key name in this file, you will have to change the name of element in the code. Therefore, take care while changing the key names.
 
 Finally, you have to set the path on the variable `pathToTranslations` for the .tsv file on the `opencracia.config.json`. 
 
