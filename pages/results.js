@@ -89,7 +89,6 @@ export default function Results(props) {
   const refHandlers = useRef();
 
   const addToast = (toast, callback) => {
-    
     const defaultToast = {
       className: "toast-sucess",
       timeout: 5000,

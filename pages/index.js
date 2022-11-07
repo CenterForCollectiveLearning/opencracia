@@ -110,11 +110,9 @@ export default function Proposal(props) {
       return obj;
     }, {});
 
-    const validate = await fetch("/api/validate", requestOptions)
-      .then(resp => resp.json());
-
     const consent = await fetch("/api/getConsent", requestOptions)
       .then(resp => resp.json());
+
     const openConsent = !consent.status;
 
     let tmpData = data.filter(d => !prevParticipation[0].includes(d.id)
