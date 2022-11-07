@@ -14,7 +14,9 @@ export default async function handler(req, res) {
   
   const data = await pool.query("SELECT * FROM consent WHERE user_id = $1;", [user_id]).then(resp => resp.rows);
   
-  res.status(200).json(data);
+  res.status(200).json({
+    status: data.length > 0
+  });
 
 }
   

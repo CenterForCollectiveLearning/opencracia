@@ -15,11 +15,6 @@ module.exports = withTM(nextTranslate({
   },
   env: {},
   async rewrites() {
-    return [
-      // {
-      //   source: "/api/:path*",
-      //   destination: `http://localhost:${3000}/api/:path*` // Proxy to Backend process.env.PROXY_PORT
-      // }
-    ];
+    return [];
   }
 }));

@@ -1,16 +1,19 @@
 import React, {useState} from "react";
-import {Button, ButtonGroup, Classes, Dialog, Icon, Intent, MenuItem, Position, Radio, RadioGroup, Slider, Toaster} from "@blueprintjs/core";
-import classNames from "classnames";
 import Link from "next/link";
+import classNames from "classnames";
+import useTranslation from "next-translate/useTranslation";
+import {Classes, Dialog} from "@blueprintjs/core";
+import {useSelector} from "react-redux";
 
 import styles from "./ConsentForm.module.scss";
-import useTranslation from "next-translate/useTranslation";
 
 export default function ConsentForm(props) {
 
   const {lang, t} = useTranslation("translation");
   const {callback, gettingStarted = t("popup.lead"), isOpen, type, universe} = props;
   const [count, setCount] = useState(0);
+
+  const {token} = useSelector(state => state.users);
 
   let panel = gettingStarted;
   if (count === 1) panel = t("popup.consent-form");
@@ -54,9 +57,8 @@ export default function ConsentForm(props) {
             const newCount = count + 1;
             if (newCount === 2) {
               const data = {
-                user_id: localStorage.getItem("mptoken"),
-                locale: lang,
-                universe: universe
+                user_id: token,
+                locale: lang
               };
               const requestOptions = {
                 method: "POST",

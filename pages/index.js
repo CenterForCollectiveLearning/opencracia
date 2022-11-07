@@ -8,76 +8,53 @@ import Navbar from "../components/Navbar";
 import Pairwise from "../modules/Pairwise";
 import Rank from "../modules/Rank";
 import classNames from "classnames";
+import config from "../opencracia.config.json";
 import numeral from "numeral";
-import store, {properties} from "../store/store";
+import store, {properties, users} from "../store/store";
 import useTranslation from "next-translate/useTranslation";
 import {MdLiveHelp} from "react-icons/md";
 import {ProgressBar} from "@blueprintjs/core";
 import {chunks, combinations, random, shuffle} from "../helpers/utils";
 import {useSelector} from "react-redux";
+import {v4 as uuidv4} from "uuid";
 
 import styles from "../styles/Home.module.scss";
-
 
 export default function Proposal(props) {
   const [state, setState] = useState({
     consentFormType: 0,
-    count: 0,
     dataFiltered: [],
     dataRanked: [],
     dataSelectedAll: [],
-    dragdrop: false,
     isOpen: false,
     isOpenConsentForm: false,
     isOpenPopupResults: false,
     loading: true,
-    pos: 0,
     updated: 0
   });
 
   const {
     consentFormType,
-    count,
     dataSelectedAll,
     isOpenConsentForm,
-    loading,
-    pos
+    loading
   } = state;
   
   const {lang, t} = useTranslation("translation");
   
   const {
     ballotSize,
-    data,
     dataChunks,
     module,
     subBallotPos
   } = useSelector(state => state.properties);
 
-  // it was not working
-  // const {token} = useSelector(state => state.users);
-
   useEffect(async() => {
+    const tokenName = `${config.domain}-token`;
+    const token = localStorage.getItem(tokenName);
+    if (!token) 
+      localStorage.setItem(tokenName, uuidv4());
 
-    const token = localStorage.getItem("mptoken");
-
-    const data = props.data;
-    store.dispatch(properties.actions.updateData(data));
-
-    let dataChunks = data.slice();
-    if (module === "pairwise") 
-      dataChunks = shuffle(combinations(data, 2));
-
-    else
-      dataChunks = chunks(data, ballotSize);
-    
-    store.dispatch(properties.actions.updateDataChunks(dataChunks));
-
-    const dataKey = data.reduce((obj, d) => {
-      obj[d.id] = d[lang];
-      return obj;
-    }, {});
-    
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -86,38 +63,76 @@ export default function Proposal(props) {
       })
     };
 
-    const validate = await fetch("/api/validate", requestOptions)
+    const prevParticipation = await fetch("/api/getParticipation", requestOptions)
       .then(resp => resp.json());
 
-    const participation = await fetch("/api/getParticipation", requestOptions)
+    const dataSelectedAll = [];
+    for (const s of prevParticipation[0]) 
+      dataSelectedAll.push({selected: 0, id: s.toString(), name: dataKey[s]});
+
+    for (const s of prevParticipation[1]) 
+      dataSelectedAll.push({selected: 1, id: s.toString(), name: dataKey[s]});
+    
+    for (const s of prevParticipation["-1"]) 
+      dataSelectedAll.push({selected: -1, id: s.toString(), name: dataKey[s]});
+
+    const data = props.data;
+
+    let dataChunks = data.slice();
+    if (module === "pairwise") 
+      dataChunks = shuffle(combinations(data, 2));
+    else
+      dataChunks = chunks(data, ballotSize);
+
+    const prevRank = prevParticipation.rank.map(d => {
+      const keys = d.rank.replace(/>|<|=/g, "_").split("_");
+      keys.sort();
+      return keys.join("_");
+    });
+
+    if (prevRank.length && module === "pairwise") {
+      dataChunks = dataChunks.reduce((all, d) => {
+        const idA = d[0].id;
+        const idB = d[1].id;
+        const keys = [idA, idB];
+        keys.sort();
+        const customId = keys.join("_");
+
+        if (!prevRank.includes(customId)) 
+          all.push(d);
+        
+        return all;
+      }, []);
+    }
+
+    const dataKey = data.reduce((obj, d) => {
+      obj[d.id] = d[lang];
+      return obj;
+    }, {});
+
+    const validate = await fetch("/api/validate", requestOptions)
       .then(resp => resp.json());
 
     const consent = await fetch("/api/getConsent", requestOptions)
       .then(resp => resp.json());
-    const openConsent = consent.length === 0 ? true : false;
+    const openConsent = !consent.status;
 
-    const dataSelectedAll = [];
-    for (const s of participation[0]) 
-      dataSelectedAll.push({selected: 0, id: s.toString(), name: dataKey[s]});
-
-    for (const s of participation[1]) 
-      dataSelectedAll.push({selected: 1, id: s.toString(), name: dataKey[s]});
-    
-    for (const s of participation["-1"]) 
-      dataSelectedAll.push({selected: -1, id: s.toString(), name: dataKey[s]});
-
-    let tmpData = data.filter(d => !participation[0].includes(d.id)
-      && !participation[1].includes(d.id)
-      && !participation["-1"].includes(d.id));
+    let tmpData = data.filter(d => !prevParticipation[0].includes(d.id)
+      && !prevParticipation[1].includes(d.id)
+      && !prevParticipation["-1"].includes(d.id));
 
     tmpData = shuffle(tmpData);
-    // data = shuffle(data);
+    
+    // Dispatch states to React Redux
+    store.dispatch(users.actions.updateToken(token));
+    store.dispatch(properties.actions.updateData(data));
+    store.dispatch(properties.actions.updateDataChunks(dataChunks));
 
     setState({
       ...state,
       dataSelectedAll,
       dataFiltered: shuffle(dataSelectedAll).slice(0, ballotSize),
-      isOpenConsentForm: openConsent, // validate.length === 0,
+      isOpenConsentForm: openConsent,
       loading: false
     });
   }, []);
@@ -223,6 +238,11 @@ export async function getStaticProps() {
 
   const resp = await fetch("http://localhost:3000/api/proposals");
   const data = await resp.json();
+
+  // const token = localStorage.getItem("mptoken");
+  // if (!token) 
+  //   localStorage.setItem("mptoken", uuidv4());
+  // store.dispatch(users.actions.updateToken(token));
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

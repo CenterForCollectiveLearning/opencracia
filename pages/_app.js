@@ -1,11 +1,9 @@
 import React, {useEffect} from "react";
+import store, {properties, users} from "../store/store";
 import {FocusStyleManager} from "@blueprintjs/core";
 import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
-import {v4 as uuidv4} from "uuid";
-import store, {properties, users} from "../store/store";
 import {Provider, useDispatch} from "react-redux";
-
-
+import config from "../opencracia.config.json";
 import Head from "next/head";
 
 FocusStyleManager.onlyShowFocusOnTabs();
@@ -15,8 +13,6 @@ import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 
 import "../styles/globals.scss";
-import {shuffle} from "../helpers/utils";
-
 
 // This default export is required in a new `pages/_app.js` file.
 function MyApp({Component, pageProps}) {
@@ -24,34 +20,14 @@ function MyApp({Component, pageProps}) {
   const description = "";
   const image = "https://demo.opencracia.org/opengraph/desktop.jpg";
   const keywords = "opencracia,monprogramme,brazucracia,chilecracia,elections";
-  const primaryLanguage = "en";
-  const title = "Opencracia";
+  const primaryLanguage = config.languages[0] || "en";
+  const title = config.title || "Opencracia";
   const twitter = "@LearningCCL";
   const url = "https://demo.opencracia.org/";
 
-  useEffect(async() => {
-    const token = localStorage.getItem("mptoken");
-    if (!token) 
-      localStorage.setItem("mptoken", uuidv4());
-      
-    // const module = shuffle(process.env.UNIVERSES.split(","))[0];
-    // store.dispatch(properties.actions.updateModule(module));
-
-    // const universe = localStorage.getItem("mpuniverse");
-    // if (!universe) {
-    //   const universes = [4, 5, 6];
-    //   localStorage.setItem("mpuniverse", shuffle(universes)[0]);
-    // }
-
-    // store.dispatch(properties.actions.updateBallotSize(5)); //  || universe * 1
-    
-    store.dispatch(users.actions.updateToken(token));
-
-  }, []);
-
   return <Provider store={store}>
     <GoogleReCaptchaProvider
-      reCaptchaKey="6Lf_KPMeAAAAAKa96e7sRWReZYgYYurmIQ2YlOUi"
+      reCaptchaKey={config["RECAPTCHA_KEY"]}
     >
       <Head>
         <meta property="description" content={description} key="description" />
@@ -74,6 +50,14 @@ function MyApp({Component, pageProps}) {
       <Component {...pageProps} />
     </GoogleReCaptchaProvider>
   </Provider>;
+}
+
+export async function getInitialProps() {
+  return {
+    props: {
+      RECAPTCHA_KEY: "cristalball"
+    }
+  };
 }
 
 export default MyApp;

@@ -12,7 +12,7 @@ const {SECRET_KEY} = process.env;
 
 export default async function handler(req, res) {
 
-  const {user_id, universe, locale} = req.body;
+  const {user_id, locale} = req.body;
   
   const publicIpV4 = req.headers["x-forwarded-for"] ||
      req.socket.remoteAddress ||
@@ -22,8 +22,8 @@ export default async function handler(req, res) {
   const hashIp = hmacSHA512(publicIpV4, SECRET_KEY).toString();
 
   pool.query(
-    "INSERT INTO consent (user_id, ip_hash, universe, locale) VALUES ($1, $2, $3, $4)", 
-    [user_id, hashIp, universe, locale], 
+    "INSERT INTO consent (user_id, ip_hash, locale) VALUES ($1, $2, $3)", 
+    [user_id, hashIp, locale], 
     (error, result) => {
       if (error) {
         console.log(error);
