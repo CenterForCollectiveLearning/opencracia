@@ -63,21 +63,20 @@ export default function Proposal(props) {
       })
     };
 
+    // Gets previous participation of the same token in the platform
     const prevParticipation = await fetch("/api/getParticipation", requestOptions)
       .then(resp => resp.json());
 
     const dataSelectedAll = [];
-    for (const s of prevParticipation[0]) 
-      dataSelectedAll.push({selected: 0, id: s.toString(), name: dataKey[s]});
+    for (const i of [-1, 0, 1]) {
+      for (const s of prevParticipation[0]) 
+        dataSelectedAll.push({selected: i, id: s.toString()});
+    }
 
-    for (const s of prevParticipation[1]) 
-      dataSelectedAll.push({selected: 1, id: s.toString(), name: dataKey[s]});
-    
-    for (const s of prevParticipation["-1"]) 
-      dataSelectedAll.push({selected: -1, id: s.toString(), name: dataKey[s]});
+    console.log(dataSelectedAll);
 
     let data = props.data;
-    if (dataSelectedAll.length && module == "approval") {
+    if (dataSelectedAll.length && ["approval", "fallback"].includes(module)) {
       const filterIds = dataSelectedAll.map(d => d.id);
       data = data.filter(d => !filterIds.includes(d.id));
     }
@@ -86,7 +85,7 @@ export default function Proposal(props) {
     if (module === "pairwise") 
       dataChunks = shuffle(combinations(data, 2));
     else
-      dataChunks = chunks(data, ballotSize);
+      dataChunks = chunks(shuffle(data), ballotSize);
 
     const prevRank = prevParticipation.rank.map(d => {
       const keys = d.rank.replace(/>|<|=/g, "_").split("_");
