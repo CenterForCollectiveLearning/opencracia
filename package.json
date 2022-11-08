@@ -2,8 +2,8 @@
   "name": "opencracia",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/db.js && node scripts/translations.js generate_translations && next dev",
+    "build": "node scripts/db.js && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "next test"

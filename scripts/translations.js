@@ -1,14 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const configFile = require("../../opencracia.config.json");
+const configFile = require("../opencracia.config.json");
 const CSV_URL = configFile["translations"];
 const languages = configFile["languages"];
-const pathToTranslations = configFile["pathToTranslations"];
 const FileSystem = require("fs");
-
-function isNumeric(value) {
-  return /^-?\d+$/.test(value);
-}
-
 
 function csvJSON(csv, lang, delimiter = "\t") {
 
@@ -28,9 +22,9 @@ function csvJSON(csv, lang, delimiter = "\t") {
     const key2 = currentline[0].split(".")[1];
     const element = currentline[langIndex];
 
-    if (!(key1 in result)){
-      result[key1] = {}
-    }
+    if (!(key1 in result))
+      result[key1] = {};
+    
 
     result[key1][key2] = element;
     
@@ -38,25 +32,21 @@ function csvJSON(csv, lang, delimiter = "\t") {
   return result;
 }
 
-export default async function handler(req, res) {
+async function generate_translations() {
+  const data = await fetch(CSV_URL).then(resp => resp.text());
 
-  const allTranslations = {};
   for (let i = 0; i < languages.length; i++) {
     const lang = languages[i];
 
     if (!(lang in allTranslations)){
-      const data = await fetch(CSV_URL).then(resp => resp.text());
       const jsonData = csvJSON(data, lang);
+      const filename = `../locales/${lang}/translation.json`;
 
-      FileSystem.writeFile(pathToTranslations+lang+'/translation.json', JSON.stringify(jsonData), (error) => {
-          if (error) throw error;
-        });
-      allTranslations[lang] = pathToTranslations+lang+'/translation.json';
+      FileSystem.writeFile(filename, JSON.stringify(jsonData), (error) => {
+        if (error) throw error;
+      });
     }
 
   }
-  
-  res.status(200).json(allTranslations);
-  
 }
   

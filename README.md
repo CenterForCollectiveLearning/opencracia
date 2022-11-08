@@ -24,8 +24,8 @@ After you clone the template, you need to config two files before to start. The 
   "module": "approval",
   "proposals": "CSV_FILE_URL",
   "ballotSize": 5,
-  "translations": "TSV_FILE_URL",
-  "pathToTranslations" : "PATH_DIRECTORY_TRANSLATIONS",
+  "RECAPTCHA_KEY": "",
+  "translations": "TSV_FILE_URL"
 }
 ```
 

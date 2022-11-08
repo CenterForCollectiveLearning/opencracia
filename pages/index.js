@@ -76,7 +76,11 @@ export default function Proposal(props) {
     for (const s of prevParticipation["-1"]) 
       dataSelectedAll.push({selected: -1, id: s.toString(), name: dataKey[s]});
 
-    const data = props.data;
+    let data = props.data;
+    if (dataSelectedAll.length && module == "approval") {
+      const filterIds = dataSelectedAll.map(d => d.id);
+      data = data.filter(d => !filterIds.includes(d.id));
+    }
 
     let dataChunks = data.slice();
     if (module === "pairwise") 

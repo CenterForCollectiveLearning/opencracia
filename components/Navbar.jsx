@@ -1,31 +1,29 @@
 import React, {useEffect, useRef, useState} from "react";
+import CustomHelmet from "./CustomHelmet";
 import Link from "next/link";
 import classNames from "classnames";
-
-import styles from "./Navbar.module.scss";
-import numeral from "numeral";
-import Loading from "./Loading";
-
 import config from "../platform.config";
 import configFile from "../opencracia.config.json";
-
-import {Drawer, Position} from "@blueprintjs/core";
-
 import useTranslation from "next-translate/useTranslation";
-import CustomHelmet from "./CustomHelmet";
+import {Drawer, Position} from "@blueprintjs/core";
 import {FaAlignJustify, FaBars} from "react-icons/fa";
-import {usePlausible} from "next-plausible";
 import {useSelector} from "react-redux";
+
+import styles from "./Navbar.module.scss";
 
 export default function Navbar(props) {
 
-  const {callback = undefined, comparison = undefined, hmProps = {}, hmTitle = config.title, logo = "/logos/opencracia.svg", selected = undefined} = props;
+  const {
+    callback = undefined, 
+    comparison = undefined, 
+    hmProps = {}, 
+    hmTitle = config.title, 
+    logo = "/logos/opencracia.svg", 
+    selected = undefined
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
-
   const {languages} = useSelector(state => state.languages);
-
   const {lang, t} = useTranslation("translation");
-  const plausible = usePlausible();
 
   const brand = <div className={styles.brand}>
     <Link href="/">
@@ -43,17 +41,22 @@ export default function Navbar(props) {
 
   const menuItems = <>
     <Link href="/">
-      <a className={classNames(styles.item, {[styles.selected]: selected === "participate"})} onClick={() => plausible("menu.participate")}>
+      <a className={classNames(styles.item, {[styles.selected]: selected === "participate"})}>
         <li className={styles.label}>{t("results.participate")}</li>
       </a>
     </Link>
     <Link href="/proposals">
-      <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})} onClick={() => plausible("menu.proposals")}>
+      <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})}>
         <li className={styles.label}>{t("menu.proposals")}</li>
       </a>
     </Link>
+    <Link href="/proposals">
+      <a className={classNames(styles.item, {[styles.selected]: selected === "about"})}>
+        <li className={styles.label}>{t("menu.about")}</li>
+      </a>
+    </Link>
     <Link href="/results">
-      <a className={classNames(styles.item, {[styles.selected]: selected === "results"})} onClick={() => plausible("menu.results")}>
+      <a className={classNames(styles.item, {[styles.selected]: selected === "results"})}>
         <li className={styles.label}>{t("menu.results")}</li>
       </a>
     </Link>
@@ -73,7 +76,6 @@ export default function Navbar(props) {
       </ul>
     </Drawer>
     <nav className={styles.navbar}>
-      
       <div className={styles.grid}>
         <div className={styles["drawer-button"]} onClick={() => setIsOpen(!isOpen)}>
           <FaBars />
