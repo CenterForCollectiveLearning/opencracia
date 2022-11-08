@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 
 import styles from "./Card.module.scss";
-import {useEffect} from "react";
 
 export default function Card(props) {
   const [isClicked, setIsClicked] = useState(false);
@@ -16,9 +15,22 @@ export default function Card(props) {
     setIsClicked(false);
   }, [props]);
 
+  const cardStyle = {};
+  const isPhoto = item.photo !== undefined;
+
+  if (isPhoto)
+    cardStyle.backgroundImage = `url(${item.photo})`;
+
+  console.log(cardStyle);
+
+
   return <div className={styles.cardwrapper}>
     <div 
-      className={classNames(styles.card, {[styles.lite]: lite})}
+      className={classNames(
+        styles.card, 
+        {[styles.lite]: lite}, 
+        {[styles.photo]: isPhoto}
+      )}
       key={`${item.id}_card_${Math.random()}`}
       onClick={evt => {
         if (item.multichoice) setIsClicked(true);
@@ -27,13 +39,12 @@ export default function Card(props) {
           callback(evt, item, options);
         }
       }}
+      style={cardStyle}
     >
-      {/* {!lite && <div className={styles["card-footer"]}>{footer}</div>} */}
       <div className={styles["card-body"]} style={{flexDirection}}>
         {icon && <img className={styles.icon} src={icon} alt="" />}
         <span className={styles.label}>{title}</span>
       </div>
-      
     </div>
     <div className={styles.multichoice}>
       {isClicked && multichoice.map((d, i) => 
@@ -44,7 +55,9 @@ export default function Card(props) {
             setIsClicked(false);
             callback(evt, item, options);
           }}
-        >{d}</div>
+        >
+          {d}
+        </div>
       )}
     </div>
   </div>;
