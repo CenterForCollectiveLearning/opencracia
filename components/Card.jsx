@@ -7,7 +7,7 @@ export default function Card(props) {
   const [isClicked, setIsClicked] = useState(false);
 
   const {callback, flexDirection="row", icon=undefined, item, lang, lite=false, options} = props;
-  const title = item.name || item.title || item[lang] || "";
+  const title = item[lang] || item.name || item.title || item.en || "";
   const footer = item.footer || item.topic_name || item[`${lang}_category`] || "";
   const multichoice = item[`${lang}_multichoice`] || [];
 
