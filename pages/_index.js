@@ -33,7 +33,7 @@ export default function Home() {
 
 
   useEffect(async() => {
-    const data = await fetch("/api/proposals")
+    const data = await fetch("/api/alternatives")
       .then(resp => resp.json());
 
     const n = data.length;

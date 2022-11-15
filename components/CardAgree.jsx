@@ -32,18 +32,18 @@ export default function CardAgree(props) {
             callback({id: item.id.toString(), name, selected: option, option: null});
           }}><BsCheckLg /></button>
         <button
-          className={classNames(styles.button, styles.disagree, {[styles.selected]: selected === 0})}
+          className={classNames(styles.button, styles.disagree, {[styles.selected]: selected === -1})}
           onClick={() => {
-            const option = 0;
+            const option = -1;
             setSelected(option);
             setIsOpen(false);
             setSubselected(undefined);
             callback({id: item.id.toString(), name, selected: option, option: null});
           }}><BsXLg /></button>
         <button
-          className={classNames(styles.button, styles.skip, {[styles.selected]: selected === -1})}
+          className={classNames(styles.button, styles.skip, {[styles.selected]: selected === 0})}
           onClick={() => {
-            const option = -1;
+            const option = 0;
             setSelected(option);
             setIsOpen(false);
             setSubselected(undefined);

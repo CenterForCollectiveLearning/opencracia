@@ -19,7 +19,7 @@ function Subpanel(props) {
       {/* {!isOpen ? <FaAngleRight /> : <FaAngleDown />} */}
       {title}
     </h2>
-    {isOpen && <div className={styles.proposals}>
+    {isOpen && <div className={styles.alternatives}>
       {data.map(h => <Proposal
         key={h.id}
         name={h[lang]}

@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const configFile = require("../../opencracia.config.json");
-const CSV_URL = configFile["proposals"];
+const CSV_URL = configFile["alternatives"];
 
 function isNumeric(value) {
   return /^-?\d+$/.test(value);

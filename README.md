@@ -2,7 +2,7 @@
 
 Opencracia is an open-source framework that empowers communities, citizens and activists to create their own digital democracy platforms. 
 
-The software aims to give users the ability to find their own opinion as well as the collective opinion of the proposals provided by the creators via a series of approvals and preferences. 
+The software aims to give users the ability to find their own opinion as well as the collective opinion of the alternatives provided by the creators via a series of approvals and preferences. 
 
 Opencracia incorporates lessons from our seven previous platforms that showed promising results in expanding the understanding of collective preferences. In addition, we included methods taken from social choice theory, the formal study of collective decision-making, into the framework. 
 
@@ -22,7 +22,7 @@ After you clone the template, you need to config two files before to start. The 
   "title": "Opencracia",
   "languages": ["en", "es"],
   "module": "approval",
-  "proposals": "CSV_FILE_URL",
+  "alternatives": "CSV_FILE_URL",
   "ballotSize": 5,
   "RECAPTCHA_KEY": "",
   "translations": "TSV_FILE_URL"
@@ -65,7 +65,7 @@ Finally, you have to set the path on the variable `TSV_FILE_URL` for the .tsv fi
 
 ### Proposals
 
-Teams involved in the deployment of an instance should prepare a CSV file with a set of proposals to ask users. Each column represents the proposals in a different language. Also, the file must including an `id` column.
+Teams involved in the deployment of an instance should prepare a CSV file with a set of alternatives to ask users. Each column represents the alternatives in a different language. Also, the file must including an `id` column.
 
 For example, you want to deploy a platform in English, Spanish and Portuguese, and asking 3 propositions, the parameter should be `"languages": ["en", "es", "pt"]`, and the CSV file should look like:
 
@@ -74,7 +74,7 @@ For example, you want to deploy a platform in English, Spanish and Portuguese, a
 | 1 | Create a new constitution | Crear una nueva constitucion | Criar uma nova constituição |
 | 2 | Legalization of cannabis | Legalizacion de la marihuana | Legalizar a maconha |
 
-Additionally, the parameter `proposals` is the url of the CSV file. 
+Additionally, the parameter `alternatives` is the url of the CSV file. 
 
 ### Modules
 
@@ -85,7 +85,7 @@ Currently, `opencracia.config.json` supports four participation modules:
 - `rank`      : Ranking Voting
 - `fallback`  : Fallback Voting
 
-Also, we include a parameter called `ballotSize` in order to divide the number of propositions contained per panel in `approval`, `ranking`, and `fallback` modules. For example, whether `ballotSize = 5` and there are 50 proposals, the platform will split into ten panels of 5 proposals each.
+Also, we include a parameter called `ballotSize` in order to divide the number of propositions contained per panel in `approval`, `ranking`, and `fallback` modules. For example, whether `ballotSize = 5` and there are 50 alternatives, the platform will split into ten panels of 5 alternatives each.
 
 ### Database
 

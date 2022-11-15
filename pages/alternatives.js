@@ -9,10 +9,10 @@ export default function Proposals(props) {
   const {data} = props;
   const {t, lang} = useTranslation("translation");
 
-  const title = <h1 className="title">{t("menu.proposals")}</h1>;
+  const title = <h1 className="title">{t("menu.alternatives")}</h1>;
   const nav =<Navbar
-    hmTitle={`${t("menu.proposals")} / ${t("website.name")}`}
-    selected="proposals" />;
+    hmTitle={`${t("menu.alternatives")} / ${t("website.name")}`}
+    selected="alternatives" />;
 
   return <>
     {nav}
@@ -35,7 +35,7 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
 
-  const resp = await fetch("http://localhost:3000/api/proposals");
+  const resp = await fetch("http://localhost:3000/api/alternatives");
   const data = await resp.json();
 
   // By returning { props: { posts } }, the Blog component

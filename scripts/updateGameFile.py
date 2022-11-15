@@ -29,9 +29,9 @@ def replace_id(x):
     return x
 
 filename_prop_cand = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSrCKrBSvYK6Fi9zrI8zBpoo3nWJs7LHWoOkPHr4bp70RDBPErnTla3ECSHN2-oyA/pub?gid=1937868951&single=true&output=tsv"
-proposals = pd.read_csv(filename_prop_cand, delimiter="\t", lineterminator='\n')
-proposals.drop(columns=proposals.columns[-3:], inplace=True)
-proposals = proposals[proposals['proposal_id'].notna()]
-proposals['proposal_id'] = proposals['proposal_id'].astype(int)
-proposals['candidate_ids'] = proposals['candidate_ids'].apply(lambda x: replace_id(x))
-proposals[['proposal_id','candidate_ids','start_date','source_link','source_text']].to_sql('game', con=engine, if_exists='replace')
+alternatives = pd.read_csv(filename_prop_cand, delimiter="\t", lineterminator='\n')
+alternatives.drop(columns=alternatives.columns[-3:], inplace=True)
+alternatives = alternatives[alternatives['proposal_id'].notna()]
+alternatives['proposal_id'] = alternatives['proposal_id'].astype(int)
+alternatives['candidate_ids'] = alternatives['candidate_ids'].apply(lambda x: replace_id(x))
+alternatives[['proposal_id','candidate_ids','start_date','source_link','source_text']].to_sql('game', con=engine, if_exists='replace')

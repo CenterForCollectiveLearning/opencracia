@@ -47,8 +47,9 @@ export const properties = createSlice({
     ballotSize: configFile["ballotSize"] || 2,
     data: [],
     dataChunks: [],
+    memory: [],
+    module: configFile["module"] || "pairwise",
     subBallotPos: 0,
-    module: configFile["module"] || "pairwise"
   },
   reducers: {
     updateBallotSize(state, action) {
@@ -59,6 +60,9 @@ export const properties = createSlice({
     },
     updateDataChunks(state, action) {
       state.dataChunks = action.payload;
+    },
+    updateMemory(state, action) {
+      state.memory = state.memory.concat(action.payload);
     },
     updateSubBallotPos(state, action) {
       state.subBallotPos = action.payload;

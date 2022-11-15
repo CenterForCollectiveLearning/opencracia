@@ -111,7 +111,6 @@ export default function Results(props) {
         user_id: token
       })
     };
-    console.log(token);
 
     const response = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
     let _ = response.data;
@@ -200,7 +199,7 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
 
-  const resp = await fetch("http://localhost:3000/api/proposals");
+  const resp = await fetch("http://localhost:3000/api/alternatives");
   const data = await resp.json();
 
   // By returning { props: { posts } }, the Blog component

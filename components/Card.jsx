@@ -16,12 +16,12 @@ export default function Card(props) {
   }, [props]);
 
   const cardStyle = {};
-  const isPhoto = item.photo !== undefined;
+  console.log(item);
+  const isPhoto = item.photo !== undefined && (item.photo !== "" && lite);
 
   if (isPhoto)
     cardStyle.backgroundImage = `url(${item.photo})`;
 
-  console.log(cardStyle);
 
 
   return <div className={styles.cardwrapper}>

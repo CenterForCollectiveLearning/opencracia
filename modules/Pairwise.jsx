@@ -85,12 +85,12 @@ export default function Pairwise(props) {
         item={{name: t("pairwise.both"), id: 0}}
         callback={() => setPair(itemA.id, itemB.id, 0)}
       />
-      <Card
+      {/* <Card
         lite={true}
         icon="/icons/neither.svg"
         item={{name: t("pairwise.neither"), id: 0}}
         callback={() => setPair(itemA.id, itemB.id, -2)}
-      />
+      /> */}
       <Card
         lite={true}
         icon="/icons/jump.svg"

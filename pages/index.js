@@ -46,9 +46,10 @@ export default function Proposal(props) {
     ballotSize,
     dataChunks,
     module,
+    memory,
     subBallotPos
   } = useSelector(state => state.properties);
-
+  
   useEffect(async() => {
     const tokenName = `${config.domain}-token`;
     const token = localStorage.getItem(tokenName);
@@ -70,10 +71,8 @@ export default function Proposal(props) {
     const dataSelectedAll = [];
     for (const i of [-1, 0, 1]) {
       for (const s of prevParticipation[0]) 
-        dataSelectedAll.push({selected: i, id: s.toString()});
+        dataSelectedAll.push({selected: i, id: s.toString(), module: "approval"});
     }
-
-    console.log(dataSelectedAll);
 
     let data = props.data;
     if (dataSelectedAll.length && ["approval", "fallback"].includes(module)) {
@@ -126,6 +125,7 @@ export default function Proposal(props) {
     
     // Dispatch states to React Redux
     store.dispatch(users.actions.updateToken(token));
+    store.dispatch(properties.actions.updateMemory(dataSelectedAll));
     store.dispatch(properties.actions.updateData(data));
     store.dispatch(properties.actions.updateDataChunks(dataChunks));
 
@@ -237,7 +237,7 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
 
-  const resp = await fetch("http://localhost:3000/api/proposals");
+  const resp = await fetch("http://localhost:3000/api/alternatives");
   const data = await resp.json();
 
   // const token = localStorage.getItem("mptoken");

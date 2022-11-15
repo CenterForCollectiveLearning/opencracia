@@ -45,9 +45,9 @@ export default function Navbar(props) {
         <li className={styles.label}>{t("results.participate")}</li>
       </a>
     </Link>
-    <Link href="/proposals">
-      <a className={classNames(styles.item, {[styles.selected]: selected === "proposals"})}>
-        <li className={styles.label}>{t("menu.proposals")}</li>
+    <Link href="/alternatives">
+      <a className={classNames(styles.item, {[styles.selected]: selected === "alternatives"})}>
+        <li className={styles.label}>{t("menu.alternatives")}</li>
       </a>
     </Link>
     <Link href="/about">
