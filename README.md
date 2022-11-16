@@ -132,4 +132,4 @@ We encourage developers and hack-activists to send their Pull Requests to Opencr
 
 ## License
 
-Opencracia is open source software unther the GPL v3.0 license.
+Opencracia is open source software unther the MIT license.
