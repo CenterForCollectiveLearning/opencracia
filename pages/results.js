@@ -190,7 +190,7 @@ export default function Results(props) {
             footnote={undefined}
             title={"results.my-ranking-title"}
             value="value"
-            backgroundColor="#0055A4"
+            backgroundColor="#0046bf"
           />
           : <div className="column">
             <h2 className="is-center">{t("results.my-ranking-title")}</h2>
