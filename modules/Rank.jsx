@@ -1,15 +1,12 @@
-import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 import DragDrop from "../components/DragDrop";
-import useTranslation from "next-translate/useTranslation";
 import classNames from "classnames";
+import store, {properties, users} from "../store/store";
+import useTranslation from "next-translate/useTranslation";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
-
-import styles from "./Rank.module.scss";
-import {useState} from "react";
 import {useSelector} from "react-redux";
 
-import store, {properties, users} from "../store/store";
+import styles from "./Rank.module.scss";
 
 export default function Rank(props) {
   const {data, isFallback=false} = props; // dataFiltered
@@ -20,10 +17,10 @@ export default function Rank(props) {
   const {dataRanked, updated} = state;
   const {lang, t} = useTranslation("translation");
   const {token} = useSelector(state => state.users);
-  const {ballotSize, subBallotPos} = useSelector(state => state.properties);
+  const {ballotSize, subBallotPos, collectData} = useSelector(state => state.properties);
   const {executeRecaptcha} = useGoogleReCaptcha();
 
-  const setData = async(data, table, newState) => {
+  const setData = async(data) => {
     const _token = await executeRecaptcha("action");
 
     // After N panels, display self-reported form
@@ -39,7 +36,9 @@ export default function Rank(props) {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
     };
-    fetch("/api/createRank", requestOptions);
+    if (collectData === true){
+      fetch("/api/createRank", requestOptions);
+    }
 
     window.scrollTo(0, 0);
     if (isFallback)
@@ -84,7 +83,7 @@ export default function Rank(props) {
           // if ((pos + 1) >= dataLevel.length) 
           //   newState.dataFiltered = shuffle(dataSelectedAll.filter(d => d.selected === 1)).slice(0, ballotSize);
 
-          setData(row, "rank", newState);
+          setData(row);
         }}>{t("text.next")}</button>
     </div>
   </main>;

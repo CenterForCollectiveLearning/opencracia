@@ -10,7 +10,7 @@ import styles from "./ConsentForm.module.scss";
 export default function ConsentForm(props) {
 
   const {lang, t} = useTranslation("translation");
-  const {callback, gettingStarted = t("popup.lead"), isOpen, type, universe} = props;
+  const {callback, gettingStarted = t("popup.lead"), isOpen, type, universe, collectData} = props;
   const [count, setCount] = useState(0);
 
   const {token} = useSelector(state => state.users);
@@ -58,15 +58,19 @@ export default function ConsentForm(props) {
             if (newCount === 2) {
               const data = {
                 user_id: token,
-                locale: lang
+                locale: lang,
+                universe: universe
               };
               const requestOptions = {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data)
               };
-
-              fetch("/api/createConsent", requestOptions);
+              
+              if (collectData === true){
+                fetch("/api/createConsent", requestOptions);
+              }
+                          
               callback(false);
             }
             setCount(newCount);

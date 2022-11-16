@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import CardAgree from "../components/CardAgree";
 import useTranslation from "next-translate/useTranslation";
 import classNames from "classnames";
@@ -8,8 +8,6 @@ import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 import styles from "./Approval.module.scss";
 import store, {properties, users} from "../store/store";
-
-import {useState} from "react";
 
 const sample = (array, n) => {
   const shuffled = shuffle(array);
@@ -26,22 +24,31 @@ export default function Approval(props) {
   
   const {lang, t} = useTranslation("translation");
   const {token} = useSelector(state => state.users);
-  const {ballotSize, subBallotPos} = useSelector(state => state.properties);
+  const {ballotSize, subBallotPos, collectData} = useSelector(state => state.properties);
   const {executeRecaptcha} = useGoogleReCaptcha();
   
-  const setData = async(data, table, newState) => {
+  const setData = async(data, newState) => {
     const _token = await executeRecaptcha("action");
-
+    const addMemory = data.map(d => ({
+      id: d.id,
+      module: "approval",
+      selected: d.selected
+    }));
+    store.dispatch(properties.actions.updateMemory(addMemory));
+  
     // After N panels, display self-reported form
     const userId = token;
     const tmp = data.map(d => [userId, d.id * 1, d.selected, ballotSize, lang, d.option]);
-
+    
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({data: tmp, token: _token})
     };
-    fetch("/api/createAgree", requestOptions);
+    
+    if (collectData === true) {
+      fetch("/api/createAgree", requestOptions);
+    }
 
     window.scrollTo(0, 0);
     setState(newState);
@@ -93,12 +100,9 @@ export default function Approval(props) {
             ...state,
             dataFiltered,
             selected: []
-            // dataRanked: dataFiltered,
-            // dragdrop: openPanel,
-            // updated: 0
           };
           
-          setData(selected, "agree", newState);
+          setData(selected, newState);
         } : undefined}>
         {t("text.next")}
       </button>

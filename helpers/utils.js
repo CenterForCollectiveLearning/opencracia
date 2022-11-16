@@ -10,13 +10,13 @@ export const roulette_wheel = (fitness, numberProposals) => {
     rel_fitness.push(p);
   });
   var c = 0;
-  var proposals = [];
+  var alternatives = [];
   for (let proposal_id = 1; proposal_id < rel_fitness.length; proposal_id++) {
     c = c + rel_fitness[i];
     if (Math.random() <= c)
-      proposals.push(proposal_id);
+      alternatives.push(proposal_id);
   }
-  return proposals;
+  return alternatives;
 };
 
 export const chunks = (array, size) => {

@@ -8,7 +8,7 @@ import {Toaster, Position, Intent} from "@blueprintjs/core";
 import useTranslation from "next-translate/useTranslation";
 import {interpolatePlasma} from "d3-scale-chromatic";
 import {shareText} from "../helpers/utils";
-
+import config from "../opencracia.config.json";
 import styles from "../styles/Results.module.scss";
 import {FaShare} from "react-icons/fa";
 import {useSelector} from "react-redux";
@@ -29,14 +29,12 @@ export function copyToClipboard(text) {
   document.body.removeChild(dummy);
 }
 
-
 const scale = (value, old_min, old_max, new_max, new_min) => ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min;
 
 export function Rank(props) {
   const {t} = useTranslation("translation");
   const [isOpen, setIsOpen] = useState(true);
   const {backgroundColor, data, display = true, summary=true, title, value} = props;
-  
   const N_ITEMS = 10;
 
   const filteredData = isOpen ? data.slice(0, N_ITEMS) : data;
@@ -48,6 +46,7 @@ export function Rank(props) {
   return <div className="column">
     <h2 className="is-center">{t(title)}</h2>
     {filteredData.map((d, i, {length}) => {
+
       const _value = d[value];
       if (i === 0) tmpValue = _value;
 
@@ -101,36 +100,53 @@ export default function Results(props) {
     // .current.create(toastOutput);
   };
 
-
-
   useEffect(async () => {
+
+    const tokenName = `${config.domain}-token`;
+
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        user_id: token
+        user_id: token || localStorage.getItem(tokenName)
       })
     };
-    console.log(token);
+    
+    const responseIndividual = await fetch("/api/rankingIndividual", requestOptions).then(resp => resp.json());
+    const responseCollective = await fetch("/api/rankingCollective", requestOptions).then(resp => resp.json());
+    let count = 0;
 
-    const response = await fetch("/api/ranking", requestOptions).then(resp => resp.json());
-    let _ = response.data;
+    let ind = responseIndividual.data;
+    let col = responseCollective.data;
 
-    const agreements = _.slice().filter(d => d.agreement !== null);
+    const agreements = col.slice().filter(d => d.agreement !== null);
     agreements.sort((a, b) => b.agreement - a.agreement);
     agreements.forEach((d, i) => {
       d.backgroundColor = interpolatePlasma(i / agreements.length);
     });
 
-    _.forEach(d => {
+    col.forEach(d => {
       const item = data.find(h => d.id.toString() === h.id.toString()) || {};
       const tmp = agreements.find(h => d.id.toString() === h.id.toString()) || {};
       d.backgroundColor = tmp.backgroundColor || "red";
       d.name = item.name || item[lang] || undefined;
     });
-    // _ = _.filter(d => d.name !== undefined);
-    
-    setState({...state, individualRank: _, count, loading: false, collectiveRank: _});
+
+    const agrees = ind.slice().filter(d => d.agreement !== null);
+    agrees.sort((a, b) => b.agreement - a.agreement);
+    agrees.forEach((d, i) => {
+      d.backgroundColor = interpolatePlasma(i / agrees.length);
+      count = count + d.wins + d.agreed + d.losses + d.disagreed;
+    });
+
+    ind.forEach(d => {
+      const item = data.find(h => d.id.toString() === h.id.toString()) || {};
+      const tmp = agrees.find(h => d.id.toString() === h.id.toString()) || {};
+      d.backgroundColor = tmp.backgroundColor || "red";
+      d.name = item.name || item[lang] || undefined;
+    });
+
+    setState({...state, individualRank: ind, count, loading: false, collectiveRank: col});
   }, []);
 
   const title = <h1 className="title">{t("results.title")}</h1>;
@@ -186,7 +202,7 @@ export default function Results(props) {
           data={collectiveRank}
           footnote={t("results.agreements-text")}
           title={"results.agreements-title"}
-          value="agreement"
+          value="value"
           backgroundColor="#EAEAEA"
         />
       </div>
@@ -200,7 +216,7 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
 
-  const resp = await fetch("http://localhost:3000/api/proposals");
+  const resp = await fetch("http://localhost:3000/api/alternatives");
   const data = await resp.json();
 
   // By returning { props: { posts } }, the Blog component

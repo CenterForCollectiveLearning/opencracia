@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   
   const query1 = await pool.query("SELECT * FROM agree WHERE user_id = $1;", [user_id]).then(resp => resp.rows);
   const query2 = await pool.query("SELECT * FROM rank WHERE user_id = $1 AND rank LIKE '%>%';", [user_id]).then(resp => resp.rows);
-
+  
   const _agree = query1.filter(d => d.agree === 1);
   const _disagree = query1.filter(d => d.agree === 0);
   const _dontknow = query1.filter(d => d.agree === -1);
@@ -98,7 +98,7 @@ export default async function handler(req, res) {
       agreed: agreed[d],
       disagreed: disagreed[d],
       dontknow: dontknow[d],
-      value: wins[d]/(wins[d] + losses[d] + tie[d]);
+      value: wins[d]/(wins[d] + losses[d] + tie[d])
     });
     return all;
   }, []);
