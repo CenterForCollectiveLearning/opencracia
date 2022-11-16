@@ -1,8 +1,10 @@
 {
   "ballotSize": 6,
   "domain": "mydomain.url",
+  "collectData": true,
   "languages": ["en", "es"],
-  "module": "pairwise",
+  "module": "fallback",
+  "aggregation": "winrate",
   "alternatives": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=1308120853&single=true&output=tsv",
   "title": "Opencracia",
   "translations": "https://docs.google.com/spreadsheets/d/e/2PACX-1vScHeBN1LHDdbr0ShvDFOWdK8tn-CGRkfz_vBv8DNWFn4TyUbIVBBd71iMBmxxaNIgq_evznXOKpXnJ/pub?gid=414052729&single=true&output=tsv",

@@ -46,6 +46,8 @@ export default function Proposal(props) {
     ballotSize,
     dataChunks,
     module,
+    aggregation,
+    collectData,
     memory,
     subBallotPos
   } = useSelector(state => state.properties);
@@ -60,7 +62,7 @@ export default function Proposal(props) {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        user_id: token
+        user_id: localStorage.getItem(tokenName)
       })
     };
 
@@ -124,6 +126,7 @@ export default function Proposal(props) {
     tmpData = shuffle(tmpData);
     
     // Dispatch states to React Redux
+    // console.log("userID 2", token);
     store.dispatch(users.actions.updateToken(token));
     store.dispatch(properties.actions.updateMemory(dataSelectedAll));
     store.dispatch(properties.actions.updateData(data));
@@ -175,7 +178,8 @@ export default function Proposal(props) {
   const consentForm = <ConsentForm
     type={consentFormType}
     isOpen={isOpenConsentForm}
-    universe={module}
+    universe={aggregation}
+    collectData={collectData}
     callback={isOpenConsentForm => {
       setState({...state, isOpenConsentForm});
     }}

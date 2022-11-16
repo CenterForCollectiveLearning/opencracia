@@ -63,7 +63,7 @@ The file inside the folder `"public/data/opencracia_elements.tsv"` has the templ
 Finally, you have to set the path on the variable `TSV_FILE_URL` for the .tsv file on the `opencracia.config.json`. 
 
 
-### Proposals
+### Alternatives
 
 Teams involved in the deployment of an instance should prepare a CSV file with a set of alternatives to ask users. Each column represents the alternatives in a different language. Also, the file must including an `id` column.
 

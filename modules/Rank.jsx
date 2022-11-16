@@ -17,7 +17,7 @@ export default function Rank(props) {
   const {dataRanked, updated} = state;
   const {lang, t} = useTranslation("translation");
   const {token} = useSelector(state => state.users);
-  const {ballotSize, subBallotPos} = useSelector(state => state.properties);
+  const {ballotSize, subBallotPos, collectData} = useSelector(state => state.properties);
   const {executeRecaptcha} = useGoogleReCaptcha();
 
   const setData = async(data) => {
@@ -36,7 +36,9 @@ export default function Rank(props) {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
     };
-    fetch("/api/createRank", requestOptions);
+    if (collectData === true){
+      fetch("/api/createRank", requestOptions);
+    }
 
     window.scrollTo(0, 0);
     if (isFallback)

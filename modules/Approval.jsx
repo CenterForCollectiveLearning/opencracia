@@ -24,7 +24,7 @@ export default function Approval(props) {
   
   const {lang, t} = useTranslation("translation");
   const {token} = useSelector(state => state.users);
-  const {ballotSize, subBallotPos} = useSelector(state => state.properties);
+  const {ballotSize, subBallotPos, collectData} = useSelector(state => state.properties);
   const {executeRecaptcha} = useGoogleReCaptcha();
   
   const setData = async(data, newState) => {
@@ -39,13 +39,16 @@ export default function Approval(props) {
     // After N panels, display self-reported form
     const userId = token;
     const tmp = data.map(d => [userId, d.id * 1, d.selected, ballotSize, lang, d.option]);
-
+    
     const requestOptions = {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({data: tmp, token: _token})
     };
-    fetch("/api/createAgree", requestOptions);
+    
+    if (collectData === true) {
+      fetch("/api/createAgree", requestOptions);
+    }
 
     window.scrollTo(0, 0);
     setState(newState);

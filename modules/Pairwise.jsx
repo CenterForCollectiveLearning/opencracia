@@ -12,7 +12,7 @@ import store, {properties, users} from "../store/store";
 
 export default function Pairwise(props) {
   const [state, setState] = useState({});
-  const {data, subBallotPos} = useSelector(state => state.properties);
+  const {data, subBallotPos, collectData} = useSelector(state => state.properties);
   const {token} = useSelector(state => state.users);
   const {executeRecaptcha} = useGoogleReCaptcha();
   const {itemA, itemB, lang} = props;
@@ -51,7 +51,9 @@ export default function Pairwise(props) {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(request)
     };
-    fetch("/api/createRank", requestOptions);
+    if (collectData === true){
+      fetch("/api/createRank", requestOptions);
+    }
     store.dispatch(properties.actions.updateSubBallotPos(subBallotPos + 1));
 
     const newState = {

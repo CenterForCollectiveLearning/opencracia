@@ -11,7 +11,6 @@ import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import useTranslation from "next-translate/useTranslation";
 import Popup from "../components/Popup";
 
-
 const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export default function Home() {
@@ -26,7 +25,7 @@ export default function Home() {
   });
   const {count, data, isOpen, itemA, itemB, loading, token} = state;
   const {executeRecaptcha} = useGoogleReCaptcha();
-  
+
 
   // You can use useEffect to trigger the verification as soon as the component being loaded
   const {lang, t} = useTranslation("translation");
@@ -62,7 +61,10 @@ export default function Home() {
         uuid: localStorage.getItem("mptoken")
       })
     };
-    fetch("/api/create", requestOptions);
+
+    if (collectData === true){
+      fetch("/api/create", requestOptions);
+    }
   
     const i = random(0, n - 1);
     let j = random(0, n - 1);

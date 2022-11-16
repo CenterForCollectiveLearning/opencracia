@@ -47,6 +47,8 @@ export const properties = createSlice({
     ballotSize: configFile["ballotSize"] || 2,
     data: [],
     dataChunks: [],
+    aggregation: configFile["aggregation"] || "winrate",
+    collectData: configFile["collectData"] && true,
     memory: [],
     module: configFile["module"] || "pairwise",
     subBallotPos: 0,
@@ -69,6 +71,12 @@ export const properties = createSlice({
     },
     updateModule(state, action) {
       state.module = action.payload;
+    },
+    updateAggregation(state, action) {
+      state.aggregation = action.payload;
+    },
+    updateCollectData(state, action) {
+      state.collectData = action.payload;
     },
   },
 });

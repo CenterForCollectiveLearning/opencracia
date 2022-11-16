@@ -50,7 +50,7 @@ export default function ResultBar(props) {
       {/* <span>{count} {t("results.votes")}</span> */}
       {/* <span>{`${parseInt(value * 100)}%`}</span> */}
       <ul>
-        <li><span>{t("bar.win-rate")}: {`${parseInt(value * 100)}%`}</span></li>
+        <li><span>{t("bar.win-rate")}: {`${parseFloat(value).toFixed(2)}`}</span></li>
         {/* <li><span>{t("bar.wins")}: {props.wins}</span></li>
         {universe === 2 && <li><span>{t("bar.ties")}: {props.tie}</span></li>}
         <li><span>{t("bar.losses")}: {props.lost || props.losses}</span></li> */}
