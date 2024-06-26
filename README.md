@@ -133,3 +133,11 @@ We encourage developers and hack-activists to send their Pull Requests to Opencr
 ## License
 
 Opencracia is open source software unther the MIT license.
+
+## Acknowledgements
+
+This project was supported by the grant the European Research Executive Agency (REA) (https://doi.org/10.3030/101086712), under the project Project: 101086712 — LearnData — HORIZON-WIDERA-2022-TALENTS-01. This project was also supported by the Artiicial and Natural Intelligence Toulouse Institute – 3IA Institute: ANR-19-PI3A-0004, the French National Research Agency (ANR) under grant ANR-17-EURE-0010 (Investissements d’Avenir programme), European Lighthouse of AI for Sustainability, HORIZON-CL4-2022-HUMAN-02 project ID: 101120237. Supported also by ANR JCJC project SCONE (ANR 18-CE23-0009-01)
+
+Authors involved in the action, and, their organisations and the grant: Cesar A. Hidalgo, Center for Collective Learning, CIAS, Corvinus University, Budapest, Hungary, Center for Collective Learning, ANITI, TSE, IAST, IRIT, Université de Toulouse, Toulouse, France, Alliance Manchester Business School, University of Manchester, Manchester, UK (ANR-19-PI3A-0004, 101086712 — LearnData — HORIZON-WIDERA-2022-TALENTS-01,HORIZON-CL4-2022-HUMAN-02 project ID: 101120237). Carlos Navarrete, Center for Collective Learning, ANITI, IRIT, University of Toulouse (ANR-19-PI3A-0004), Mariana Macedo, Center for Collective Learning, ANITI, IRIT, University of Toulouse (ANR-19-PI3A-0004). Umberto Grandi and Rachael Colley, IRIT and Universite de Toulouse Capitole (ANR 18-CE23-0009-01).
+
+
